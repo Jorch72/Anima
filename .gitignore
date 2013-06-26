@@ -1,13 +1,24 @@
-*.class
-*.log
+/*
+!/resource
+!/resources
+!/mods
+!/src
+!/mcmod.info
+!/build.xml
 
-# sbt specific
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+src/minecraft/*
+!src/minecraft/net
 
-# Scala-IDE specific
-.scala_dependencies
+src/minecraft/net/*
+!src/minecraft/net/machinemuse
+
+!src/minecraft/net/minecraft
+
+src/minecraft/net/minecraft/*
+!src/minecraft/net/minecraft/src/
+
+src/minecraft/net/minecraft/src/*
+!src/minecraft/net/minecraft/src/ModelPlayer.java
+
+resources/*
+!resources/machinemuse
