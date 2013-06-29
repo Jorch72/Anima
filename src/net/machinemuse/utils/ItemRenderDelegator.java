@@ -1,4 +1,4 @@
-package net.machinemuse.anima.plants;
+package net.machinemuse.utils;
 
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;

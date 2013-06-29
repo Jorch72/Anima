@@ -10,6 +10,8 @@ import net.machinemuse.anima.block.plants.WoadSprout
 import net.minecraft.world.World
 import net.minecraft.client.Minecraft
 import cpw.mods.fml.relauncher.Side
+import cpw.mods.fml.common.registry.GameRegistry
+import net.machinemuse.utils.Localization
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -22,8 +24,8 @@ object Anima {
   var proxy: CommonProxy = if(FMLCommonHandler.instance().getSide == Side.CLIENT) new ClientProxy else new ServerProxy
 
   @PreInit def preinit(e: FMLPreInitializationEvent) {
-
     WoadSprout
+    Localization.loadCurrentLanguage()
     AnimaBlock.init(2481)
     proxy.PreInit()
   }

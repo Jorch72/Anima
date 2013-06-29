@@ -1,6 +1,6 @@
 package net.machinemuse.anima.block
 
-import net.machinemuse.anima.block.plants.{PlantItemBlock, PlantBlock}
+import net.machinemuse.anima.block.plants.{PlantTileEntity, PlantItemBlock, PlantBlock}
 import cpw.mods.fml.common.registry.GameRegistry
 
 /**
@@ -14,6 +14,8 @@ object AnimaBlock {
   def init(id: Int) {
     plantBlock = new PlantBlock(id)
     GameRegistry.registerBlock(plantBlock, classOf[PlantItemBlock], plantBlock.getUnlocalizedName)
+    GameRegistry.registerTileEntity(classOf[PlantTileEntity], plantBlock.getUnlocalizedName)
+
   }
 }
 

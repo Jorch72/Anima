@@ -29,7 +29,7 @@ object WoadLeavesTrimmed extends PlantPart("anima.woadLeavesTrimmed", PlantRende
 
 object WoadLeavesFull extends PlantPart("anima.woadLeavesFull", PlantRenderCross("woadleavesfull"), GrowUp(WoadFlowers), break = Regress(WoadLeavesTrimmed))
 
-object WoadFlowers extends PlantPart("anima.woadFlowers", PlantRenderCross("woadflowers"))
+object WoadFlowers extends PlantPart("anima.woadFlowers", PlantRenderHash("woadflowers"))
 
 //object LotusSprout extends PlantPart("anima.lotusSprout", PlantRenderCross("lotussprout.png"))
 //
