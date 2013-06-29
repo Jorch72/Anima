@@ -1,11 +1,15 @@
 package net.machinemuse.anima
 
 
-import cpw.mods.fml.common.Mod
+import cpw.mods.fml.common.{FMLCommonHandler, SidedProxy, Mod}
 import cpw.mods.fml.common.network.NetworkMod
-import cpw.mods.fml.common.Mod.Init
-import net.machinemuse.anima.block.EspritBlock
-import cpw.mods.fml.common.event.FMLInitializationEvent
+import cpw.mods.fml.common.Mod.{PostInit, PreInit, Init}
+import net.machinemuse.anima.block.AnimaBlock
+import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLPreInitializationEvent, FMLInitializationEvent}
+import net.machinemuse.anima.block.plants.WoadSprout
+import net.minecraft.world.World
+import net.minecraft.client.Minecraft
+import cpw.mods.fml.relauncher.Side
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,7 +18,21 @@ import cpw.mods.fml.common.event.FMLInitializationEvent
 @Mod(modid = "Anima", modLanguage = "scala")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, tinyPacketHandler = classOf[AnimaPacketHandler])
 object Anima {
+  //@SidedProxy(clientSide = "net.machinemuse.anima.ClientProxy", serverSide = "net.machinemuse.anima.ServerProxy")
+  var proxy: CommonProxy = if(FMLCommonHandler.instance().getSide == Side.CLIENT) new ClientProxy else new ServerProxy
+
+  @PreInit def preinit(e: FMLPreInitializationEvent) {
+
+    WoadSprout
+    AnimaBlock.init(2481)
+    proxy.PreInit()
+  }
+
   @Init def init(e: FMLInitializationEvent) {
-    //EspritBlock.init(2481)
+    proxy.Init()
+  }
+
+  @PostInit def postinit(e:FMLPostInitializationEvent) {
+    proxy.PostInit()
   }
 }

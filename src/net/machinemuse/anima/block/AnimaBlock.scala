@@ -1,8 +1,7 @@
 package net.machinemuse.anima.block
 
-import net.minecraft.block.Block
-import net.minecraft.block.material.Material
-import net.machinemuse.anima.block.plants.PlantBlocks
+import net.machinemuse.anima.block.plants.{PlantItemBlock, PlantBlock}
+import cpw.mods.fml.common.registry.GameRegistry
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -10,13 +9,15 @@ import net.machinemuse.anima.block.plants.PlantBlocks
  */
 
 object AnimaBlock {
-  var plantBlock: PlantBlocks = null
+  var plantBlock: PlantBlock = null
 
-  def init(id:Int) {
-    plantBlock = new PlantBlocks(id)
+  def init(id: Int) {
+    plantBlock = new PlantBlock(id)
+    GameRegistry.registerBlock(plantBlock, classOf[PlantItemBlock], plantBlock.getUnlocalizedName)
   }
 }
 
-class AnimaBlock(id: Int, mat: Material) extends Block(id, mat) {
-
-}
+//
+//class AnimaBlock(id: Int, mat: Material) extends Block(id, mat) {
+//
+//}
