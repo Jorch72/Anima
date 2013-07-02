@@ -48,7 +48,7 @@ trait AnimaSubItem {
     is
   }
 
-  def getUnlocalizedName(is:ItemStack) = name
+  def getUnlocalizedName(is:ItemStack) = "anima." + name
 
   def decorateNBT(tag: NBTTagCompound) {}
 
