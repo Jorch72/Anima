@@ -1,4 +1,4 @@
-package net.machinemuse.anima.plants
+package net.machinemuse.anima.plants.behaviour
 
 import net.minecraft.item.ItemStack
 

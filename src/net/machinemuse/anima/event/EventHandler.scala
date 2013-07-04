@@ -4,7 +4,7 @@ import net.minecraftforge.event.ForgeSubscribe
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action
 import net.minecraft.item.Item
-import net.machinemuse.anima.item.WaterBowl
+import net.machinemuse.anima.item.Kettle
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -27,7 +27,7 @@ object EventHandler {
     val bid = world.getBlockId(e.x,e.y,e.z)
     if(bid == 8 && e.entityPlayer.getCurrentEquippedItem.getItem.equals(Item.bowlEmpty)) {
       val i = e.entityPlayer.inventory
-      i.setInventorySlotContents(i.currentItem, WaterBowl.createItemStack)
+      i.setInventorySlotContents(i.currentItem, Kettle.createItemStack)
     }
   }
 

@@ -7,6 +7,6 @@ import net.minecraft.nbt.NBTTagCompound
  * Author: MachineMuse (Claire Semple)
  * Created: 12:15 AM, 6/29/13
  */
-object WaterBowl extends AnimaSubItem {
-  def name = "waterBowl"
+object Kettle extends AnimaSubItem {
+  def name = "clayKettle"
 }

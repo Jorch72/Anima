@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.entity.EntityLiving
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.anima.block.AnimaTileEntity
+import net.machinemuse.anima.plants.parts.WoadLeavesFull
 
 
 /**
@@ -154,7 +155,7 @@ class PlantItemBlock(id: Int) extends ItemBlock(id) {
   //  }
   override def getUnlocalizedName(stack: ItemStack): String = {
     PlantPartRegistry.getPlantPart(stack) match {
-      case Some(e) => e.name
+      case Some(e) => "anima." + e.name
       case None => "anima.plantItemBlockUnknown"
     }
   }

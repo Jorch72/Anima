@@ -6,12 +6,12 @@ import cpw.mods.fml.common.network.NetworkMod
 import cpw.mods.fml.common.Mod.{PostInit, PreInit, Init}
 import net.machinemuse.anima.block.AnimaBlock
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLPreInitializationEvent, FMLInitializationEvent}
-import net.machinemuse.anima.block.plants.WoadSprout
 import net.minecraft.world.World
 import net.minecraft.client.Minecraft
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.common.registry.GameRegistry
 import net.machinemuse.utils.Localization
+import net.machinemuse.anima.plants.parts.WoadSprout
 
 /**
  * Author: MachineMuse (Claire Semple)
