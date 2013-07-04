@@ -6,4 +6,6 @@ package net.machinemuse.anima.item
  */
 object DreamCatcher extends AnimaSubItem {
   def name = "dreamCatcher"
+
+  def iconFile = "dreamCatcher"
 }

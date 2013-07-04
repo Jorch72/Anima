@@ -1,7 +1,5 @@
 package net.machinemuse.anima.item
 
-import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -9,4 +7,6 @@ import net.minecraft.nbt.NBTTagCompound
  */
 object Kettle extends AnimaSubItem {
   def name = "clayKettle"
+
+  def iconFile = "clayKettle"
 }

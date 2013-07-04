@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.common.registry.GameRegistry
 import net.machinemuse.utils.Localization
 import net.machinemuse.anima.plants.parts.WoadSprout
+import net.machinemuse.anima.item.AnimaItem
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -27,6 +28,7 @@ object Anima {
     WoadSprout
     Localization.loadCurrentLanguage()
     AnimaBlock.init(2481)
+    AnimaItem.init(24810)
     proxy.PreInit()
   }
 
