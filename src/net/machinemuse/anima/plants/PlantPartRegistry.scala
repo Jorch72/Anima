@@ -3,6 +3,7 @@ package net.machinemuse.anima.block.plants
 import net.machinemuse.utils.{OptionCast, MuseRegistry}
 import net.minecraft.world.{IBlockAccess, World}
 import net.minecraft.item.ItemStack
+import net.machinemuse.anima.plants.PlantTileEntity
 
 /**
  * Author: MachineMuse (Claire Semple)

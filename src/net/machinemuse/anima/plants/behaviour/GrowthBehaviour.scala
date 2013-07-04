@@ -1,6 +1,7 @@
 package net.machinemuse.anima.plants.behaviour
 
-import net.machinemuse.anima.block.plants.{PlantBlock, PlantTileEntity, PlantPart}
+import net.machinemuse.anima.block.plants.{PlantBlock, PlantPart}
+import net.machinemuse.anima.plants.PlantTileEntity
 
 /**
  * Author: MachineMuse (Claire Semple)

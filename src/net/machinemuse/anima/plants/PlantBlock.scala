@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLiving
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.anima.block.AnimaTileEntity
 import net.machinemuse.anima.plants.parts.WoadLeavesFull
+import net.machinemuse.anima.plants.PlantTileEntity
 
 
 /**
@@ -95,40 +96,7 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
   }
 }
 
-class PlantTileEntity extends AnimaTileEntity {
-  var growthProgress: Byte = 0
-  var plantPart: String = ""
 
-  def fertilize() {
-    PlantPartRegistry.get(plantPart) map {
-      p =>
-        p.growth.grow(this)
-        updateContainingBlockInfo()
-    }
-  }
-
-  override def canUpdate = false
-
-  override def updateEntity() {
-    growthProgress = (growthProgress + 1).toByte
-    if (growthProgress > 0) {
-      fertilize()
-      growthProgress = 0
-    }
-  }
-
-  override def writeToNBT(nbt: NBTTagCompound) {
-    super.writeToNBT(nbt)
-    nbt.setByte("g", growthProgress)
-    nbt.setString("p", plantPart)
-  }
-
-  override def readFromNBT(nbt: NBTTagCompound) {
-    super.readFromNBT(nbt)
-    growthProgress = nbt.getByte("g")
-    plantPart = nbt.getString("p")
-  }
-}
 
 class PlantItemBlock(id: Int) extends ItemBlock(id) {
   PlantBlock.item = this
