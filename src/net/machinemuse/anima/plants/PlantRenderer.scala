@@ -3,8 +3,8 @@ package net.machinemuse.anima.block.plants
 import cpw.mods.fml.client.registry.{RenderingRegistry, ISimpleBlockRenderingHandler}
 import net.minecraft.world.IBlockAccess
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.{Tessellator, RenderEngine, RenderBlocks}
-import net.minecraft.client.renderer.texture.IconRegister
+import net.minecraft.client.renderer.{Tessellator, RenderBlocks}
+import net.minecraft.client.renderer.texture.{TextureManager, IconRegister}
 import net.minecraft.util.Icon
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.EntityLiving
@@ -52,7 +52,7 @@ object PlantRenderer extends ISimpleBlockRenderingHandler with MuseItemRenderer 
   }
 
   // Maps only e.g. thaumometer
-  def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: RenderEngine, data: MapData) {}
+  def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: TextureManager, data: MapData) {}
 
   // First person fist
   def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving) {

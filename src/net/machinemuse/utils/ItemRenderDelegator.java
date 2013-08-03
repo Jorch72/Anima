@@ -1,7 +1,7 @@
 package net.machinemuse.utils;
 
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +15,7 @@ import net.minecraftforge.client.IItemRenderer;
  */
 public class ItemRenderDelegator implements IItemRenderer {
     public MuseItemRenderer renderer;
+
     public ItemRenderDelegator(MuseItemRenderer renderer) {
         this.renderer = renderer;
     }
@@ -48,7 +49,7 @@ public class ItemRenderDelegator implements IItemRenderer {
                 break;
             case FIRST_PERSON_MAP:
                 EntityPlayer playerFirstPerson = (EntityPlayer) data[0];
-                RenderEngine engineFirstPerson = (RenderEngine) data[1];
+                TextureManager engineFirstPerson = (TextureManager) data[1];
                 MapData mapDataFirstPerson = (MapData) data[2];
                 renderer.renderFirstPersonMap(item, playerFirstPerson, engineFirstPerson, mapDataFirstPerson);
                 break;

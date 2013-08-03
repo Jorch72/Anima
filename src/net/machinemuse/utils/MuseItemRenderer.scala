@@ -1,11 +1,12 @@
 package net.machinemuse.utils
 
-import net.minecraft.client.renderer.{RenderEngine, RenderBlocks}
+import net.minecraft.client.renderer.RenderBlocks
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.client.renderer.texture.TextureManager
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,7 +15,8 @@ import net.minecraft.entity.player.EntityPlayer
 trait MuseItemRenderer {
   // Implicit delegate; allows use of a MuseItemRenderer in the place of an IItemRenderer
   val delegator = new ItemRenderDelegator(this)
-  implicit def delegate(m:MuseItemRenderer) = m.delegator
+
+  implicit def delegate(m: MuseItemRenderer) = m.delegator
 
   // Item alone as an entity e.g. dropped
   def renderEntity(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityItem)
@@ -23,7 +25,7 @@ trait MuseItemRenderer {
   def renderInventory(item: ItemStack, renderBlocks: RenderBlocks)
 
   // Maps only e.g. thaumometer
-  def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: RenderEngine, data: MapData)
+  def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: TextureManager, data: MapData)
 
   // First person fist
   def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving)

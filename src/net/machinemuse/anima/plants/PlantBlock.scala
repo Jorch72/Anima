@@ -11,9 +11,7 @@ import java.util
 import net.minecraft.util.Icon
 import net.minecraft.client.renderer.texture.IconRegister
 import cpw.mods.fml.relauncher.{SideOnly, Side}
-import net.minecraft.entity.EntityLiving
-import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.anima.block.AnimaTileEntity
+import net.minecraft.entity.EntityLivingBase
 import net.machinemuse.anima.plants.parts.WoadLeavesFull
 import net.machinemuse.anima.plants.PlantTileEntity
 
@@ -68,7 +66,7 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
     }
   }
 
-  override def onBlockPlacedBy(world: World, x: Int, y: Int, z: Int, entity: EntityLiving, stack: ItemStack) {
+  override def onBlockPlacedBy(world: World, x: Int, y: Int, z: Int, entity: EntityLivingBase, stack: ItemStack) {
     PlantPartRegistry.getPlantPart(stack).map {
       part => PlantPartRegistry.getPlantTileEntity(world, x, y, z).map {
         te => te.plantPart = part.name
@@ -95,7 +93,6 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
     }
   }
 }
-
 
 
 class PlantItemBlock(id: Int) extends ItemBlock(id) {

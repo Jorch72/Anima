@@ -5,6 +5,7 @@ import java.io._
 import net.machinemuse.general.MuseLogger
 import java.util.Properties
 import cpw.mods.fml.common.registry.LanguageRegistry
+import net.minecraft.client.Minecraft
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,7 +15,7 @@ object Localization {
   val LANG_PATH = "/mods/Anima/lang/"
   var extractedLanguage = ""
 
-  def getCurrentLanguage = StringTranslate.getInstance().getCurrentLanguage
+  def getCurrentLanguage = Minecraft.getMinecraft().func_135016_M().func_135041_c().func_135034_a()
 
   def loadCurrentLanguage() {
     if (getCurrentLanguage != extractedLanguage) {
