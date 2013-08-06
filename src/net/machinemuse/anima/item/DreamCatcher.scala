@@ -5,7 +5,7 @@ package net.machinemuse.anima.item
  * Created: 7:23 PM, 7/3/13
  */
 object DreamCatcher extends AnimaSubItem {
-  def name = "dreamCatcher"
+  def name = "dreamcatcher"
 
-  def iconFile = "dreamCatcher"
+  def iconFile = "dreamcatcher"
 }
