@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.{Tessellator, RenderBlocks}
 import net.minecraft.client.renderer.texture.{TextureManager, IconRegister}
 import net.minecraft.util.Icon
 import net.minecraft.item.ItemStack
-import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.{EntityLivingBase, EntityLiving}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.item.EntityItem
@@ -55,14 +55,14 @@ object PlantRenderer extends ISimpleBlockRenderingHandler with MuseItemRenderer 
   def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: TextureManager, data: MapData) {}
 
   // First person fist
-  def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving) {
+  def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLivingBase) {
     PlantPartRegistry.getPlantPart(item).map {
       part => part.render(0, 0, 0, renderBlocks)
     }
   }
 
   // Entity equipped in the world
-  def renderEquipped(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving) {
+  def renderEquipped(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLivingBase) {
     PlantPartRegistry.getPlantPart(item).map {
       part => part.render(0, 0, 0, renderBlocks)
     }

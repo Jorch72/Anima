@@ -2,7 +2,7 @@ package net.machinemuse.utils
 
 import net.minecraft.client.renderer.RenderBlocks
 import net.minecraft.item.ItemStack
-import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.player.EntityPlayer
@@ -28,8 +28,8 @@ trait MuseItemRenderer {
   def renderFirstPersonMap(item: ItemStack, entity: EntityPlayer, engine: TextureManager, data: MapData)
 
   // First person fist
-  def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving)
+  def renderFirstPerson(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLivingBase)
 
   // Entity equipped in the world
-  def renderEquipped(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLiving)
+  def renderEquipped(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityLivingBase)
 }

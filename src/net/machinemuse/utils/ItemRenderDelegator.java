@@ -2,7 +2,7 @@ package net.machinemuse.utils;
 
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -44,7 +44,7 @@ public class ItemRenderDelegator implements IItemRenderer {
                 break;
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];
-                EntityLiving entityEquipped = (EntityLiving) data[1];
+                EntityLivingBase entityEquipped = (EntityLivingBase) data[1];
                 renderer.renderEquipped(item, renderEquipped, entityEquipped);
                 break;
             case FIRST_PERSON_MAP:
@@ -55,7 +55,7 @@ public class ItemRenderDelegator implements IItemRenderer {
                 break;
             case EQUIPPED_FIRST_PERSON:
                 RenderBlocks renderEquFP = (RenderBlocks) data[0];
-                EntityLiving entityEquFP = (EntityLiving) data[1];
+                EntityLivingBase entityEquFP = (EntityLivingBase) data[1];
                 renderer.renderFirstPerson(item, renderEquFP, entityEquFP);
                 break;
             default:
