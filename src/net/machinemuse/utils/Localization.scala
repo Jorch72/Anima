@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft
  * Created: 9:34 PM, 6/28/13
  */
 object Localization {
-  val LANG_PATH = "/mods/Anima/lang/"
+  val LANG_PATH = "/assets/anima/lang/"
   var extractedLanguage = ""
 
   def getCurrentLanguage = Minecraft.getMinecraft().func_135016_M().func_135041_c().func_135034_a()
@@ -35,7 +35,7 @@ object Localization {
   }
 
   def translate(str: String) = {
-    loadCurrentLanguage()
+//    loadCurrentLanguage()
     StatCollector.translateToLocal(str)
   }
 }

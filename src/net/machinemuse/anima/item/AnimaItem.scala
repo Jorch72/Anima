@@ -27,6 +27,8 @@ object AnimaItem extends MuseRegistry[AnimaSubItem] {
   def init(id: Int) {
     item = new AnimaItem(id)
     addSubItem(DreamCatcher)
+    addSubItem(Kettle)
+    addSubItem(Basket)
   }
 
   def addSubItem(subItem: AnimaSubItem) = put(subItem.name, subItem)

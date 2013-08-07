@@ -6,7 +6,7 @@ package net.machinemuse.anima.item
  * Created: 12:15 AM, 6/29/13
  */
 object Kettle extends AnimaSubItem {
-  def name = "clayKettle"
+  def name = "kettle"
 
-  def iconFile = "clayKettle"
+  def iconFile = "kettle"
 }
