@@ -1,10 +1,10 @@
 Made by MachineMuse
 
-anima.woadSprout.name = Woad Sprout
-anima.woadLeavesTrimmed.name = Woad Leaves (Trimmed)
-anima.woadLeavesFull.name = Woad Leaves (Full)
-anima.woadFlowers.name = Woad Flowers
+anima.woadSprout.name=Woad Sprout
+anima.woadLeavesTrimmed.name=Woad Leaves (Trimmed)
+anima.woadLeavesFull.name=Woad Leaves (Full)
+anima.woadFlowers.name=Woad Flowers
 
-anima.dreamCatcher.name = Dream Catcher
+anima.dreamCatcher.name=Dream Catcher
 
-itemGroup.Anima = Anima
+itemGroup.Anima=Anima

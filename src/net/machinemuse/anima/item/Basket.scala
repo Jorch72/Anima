@@ -5,7 +5,7 @@ package net.machinemuse.anima.item
  * Created: 3:16 PM, 8/7/13
  */
 object Basket extends AnimaSubItem {
-  def name = "dreamcatcher"
+  def name = "basket"
 
-  def iconFile = "dreamcatcher"
+  def iconFile = "basket"
 }

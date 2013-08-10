@@ -58,6 +58,8 @@ class AnimaItem(id: Int) extends Item(id) {
   }
 
 
+  override def requiresMultipleRenderPasses = true
+
   override def getIconFromDamage(par1: Int): Icon = DreamCatcher.icon
 
   override def getIcon(stack: ItemStack, renderPass: Int, player: EntityPlayer, usingItem: ItemStack, useRemaining: Int): Icon = AnimaItem.lookUpItemStack(stack).map(i => i.icon).getOrElse(null)
@@ -85,7 +87,7 @@ trait AnimaSubItem {
 
   @SideOnly(Side.CLIENT)
   def registerIcon(registry: IconRegister) {
-    icon = registry.registerIcon("Anima:" + iconFile)
+    icon = registry.registerIcon("anima:" + iconFile)
   }
 
   def getUnlocalizedName(is: ItemStack) = "anima." + name
