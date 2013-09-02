@@ -1,7 +1,6 @@
 package net.machinemuse.anima.plants
 
 import net.machinemuse.anima.block.AnimaTileEntity
-import net.machinemuse.anima.block.plants.PlantPartRegistry
 import net.minecraft.nbt.NBTTagCompound
 
 /**

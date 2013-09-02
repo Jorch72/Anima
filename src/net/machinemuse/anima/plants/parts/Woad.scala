@@ -1,7 +1,7 @@
 package net.machinemuse.anima.plants.parts
 
-import net.machinemuse.anima.block.plants.{PlantRenderCross, PlantRenderHash, PlantPart}
 import net.machinemuse.anima.plants.behaviour.{GrowUp, Regress, GrowInPlace}
+import net.machinemuse.anima.plants.{PlantRenderCross, PlantPart, PlantRenderHash}
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,4 +1,4 @@
-package net.machinemuse.anima.block.plants
+package net.machinemuse.anima.plants
 
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -12,7 +12,7 @@ import net.machinemuse.anima.plants.behaviour.NoGrowth
 class PlantPart(val name: String, val render: PlantRenderType, val growth: GrowthBehaviour = NoGrowth(), val break: BreakBehaviour = Break(), val drop: DropBehaviour = DropNothing()) {
   def itemStack: ItemStack = itemStack(1)
 
-  def itemStack(quantity:Int): ItemStack = {
+  def itemStack(quantity: Int): ItemStack = {
     val is = new ItemStack(PlantBlock.block)
     val nbt = new NBTTagCompound()
     is.setTagCompound(nbt)

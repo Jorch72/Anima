@@ -1,8 +1,7 @@
 package net.machinemuse.anima.block
 
-import net.machinemuse.anima.block.plants.{PlantItemBlock, PlantBlock}
 import cpw.mods.fml.common.registry.GameRegistry
-import net.machinemuse.anima.plants.PlantTileEntity
+import net.machinemuse.anima.plants.{PlantItemBlock, PlantBlock, PlantTileEntity}
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,7 +1,7 @@
 package net.machinemuse.anima.plants.parts
 
-import net.machinemuse.anima.block.plants.{PlantRenderCross, PlantPart}
 import net.machinemuse.anima.plants.behaviour.{DropItem, DropSelf, GrowInPlace}
+import net.machinemuse.anima.plants.{PlantRenderCross, PlantPart}
 
 /**
  * Author: MachineMuse (Claire Semple)

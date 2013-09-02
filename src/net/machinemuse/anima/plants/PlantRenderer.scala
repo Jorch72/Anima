@@ -1,4 +1,4 @@
-package net.machinemuse.anima.block.plants
+package net.machinemuse.anima.plants
 
 import cpw.mods.fml.client.registry.{RenderingRegistry, ISimpleBlockRenderingHandler}
 import net.minecraft.world.IBlockAccess
@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.{Tessellator, RenderBlocks}
 import net.minecraft.client.renderer.texture.{TextureManager, IconRegister}
 import net.minecraft.util.Icon
 import net.minecraft.item.ItemStack
-import net.minecraft.entity.{EntityLivingBase, EntityLiving}
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.item.EntityItem

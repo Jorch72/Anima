@@ -1,4 +1,4 @@
-package net.machinemuse.anima.block.plants
+package net.machinemuse.anima.plants
 
 import net.minecraft.block.{Block, BlockCrops}
 import net.minecraft.item.{ItemStack, ItemBlock}
@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.texture.IconRegister
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.entity.EntityLivingBase
 import net.machinemuse.anima.plants.parts.WoadLeavesFull
-import net.machinemuse.anima.plants.PlantTileEntity
 
 
 /**

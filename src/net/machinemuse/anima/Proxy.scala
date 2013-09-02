@@ -1,9 +1,8 @@
 package net.machinemuse.anima
 
 import cpw.mods.fml.client.registry.RenderingRegistry
-import net.machinemuse.anima.block.plants.{PlantBlock, PlantRenderer}
 import net.minecraftforge.client.MinecraftForgeClient
-import net.machinemuse.anima.item.{AnimaItemRenderer, AnimaItem}
+import net.machinemuse.anima.plants.{PlantBlock, PlantRenderer}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,7 +20,7 @@ class ClientProxy extends CommonProxy {
   override def Init() {
     RenderingRegistry.registerBlockHandler(PlantRenderer)
     MinecraftForgeClient.registerItemRenderer(PlantBlock.item.itemID, PlantRenderer)
-//    MinecraftForgeClient.registerItemRenderer(AnimaItem.item.itemID, AnimaItemRenderer)
+    //    MinecraftForgeClient.registerItemRenderer(AnimaItem.item.itemID, AnimaItemRenderer)
   }
 }
 

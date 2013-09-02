@@ -1,6 +1,6 @@
 package net.machinemuse.anima.plants.behaviour
 
-import net.machinemuse.anima.block.plants.PlantPart
+import net.machinemuse.anima.plants.PlantPart
 
 
 /**
