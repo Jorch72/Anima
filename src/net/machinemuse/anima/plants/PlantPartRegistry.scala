@@ -1,8 +1,8 @@
 package net.machinemuse.anima.plants
 
-import net.machinemuse.utils.{OptionCast, MuseRegistry}
 import net.minecraft.world.IBlockAccess
 import net.minecraft.item.ItemStack
+import net.machinemuse.numina.scala.{MuseRegistry, OptionCast}
 
 /**
  * Author: MachineMuse (Claire Semple)

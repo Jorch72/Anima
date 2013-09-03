@@ -7,7 +7,7 @@ import net.minecraft.network.packet.{Packet131MapData, NetHandler, Packet250Cust
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:27 AM, 6/18/13
- */
+*/
 class AnimaPacketHandler extends ITinyPacketHandler {
   def handle(handler: NetHandler, mapData: Packet131MapData) {}
 }

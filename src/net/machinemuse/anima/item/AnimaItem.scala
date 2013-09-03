@@ -1,7 +1,6 @@
 package net.machinemuse.anima.item
 
 import net.minecraft.item.{ItemStack, Item}
-import net.machinemuse.utils.MuseRegistry
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.anima.AnimaTab
 import net.minecraft.creativetab.CreativeTabs
@@ -10,6 +9,7 @@ import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.util.Icon
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.entity.player.EntityPlayer
+import net.machinemuse.numina.scala.MuseRegistry
 
 /**
  * Author: MachineMuse (Claire Semple)
