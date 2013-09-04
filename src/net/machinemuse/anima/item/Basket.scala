@@ -1,11 +1,27 @@
 package net.machinemuse.anima.item
 
+import net.machinemuse.numina.item.moded.ModeChangingItem
+import net.minecraft.item.ItemStack
+import net.minecraft.util.Icon
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 3:16 PM, 8/7/13
  */
-object Basket extends AnimaSubItem {
+object Basket extends AnimaSubItem with ModeChangingItem {
   def name = "basket"
 
   def iconFile = "basket"
+
+  override def getActiveMode(stack: ItemStack): String = super.getActiveMode(stack)
+
+  def getPrevModeIcon(stack: ItemStack): Icon = ???
+
+  def getCurrentModeIcon(stack: ItemStack): Icon = ???
+
+  def getNextModeIcon(stack: ItemStack): Icon = ???
+
+  def cycleModeForward(stack: ItemStack) {}
+
+  def cycleModeBackward(stack: ItemStack) {}
 }

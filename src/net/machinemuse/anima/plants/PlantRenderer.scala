@@ -11,8 +11,8 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.item.EntityItem
-import net.machinemuse.utils.MuseItemRenderer
 import org.lwjgl.opengl.GL11
+import net.machinemuse.numina.item.MuseItemRenderer
 
 /**
  * Author: MachineMuse (Claire Semple)

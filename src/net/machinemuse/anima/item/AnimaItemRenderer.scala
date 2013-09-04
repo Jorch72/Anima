@@ -1,6 +1,5 @@
 package net.machinemuse.anima.item
 
-import net.machinemuse.utils.MuseItemRenderer
 import net.minecraft.item.ItemStack
 import net.minecraft.client.renderer.RenderBlocks
 import net.minecraft.entity.EntityLivingBase
@@ -8,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.storage.MapData
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.client.renderer.texture.TextureManager
+import net.machinemuse.numina.item.MuseItemRenderer
 
 /**
  * Author: MachineMuse (Claire Semple)
