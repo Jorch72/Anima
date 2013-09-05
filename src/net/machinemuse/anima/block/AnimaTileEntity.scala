@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound
  */
 class AnimaTileEntity extends TileEntity {
   override def onDataPacket(net: INetworkManager, pkt: Packet132TileEntityData) {
-    readFromNBT(pkt.customParam1)
+    readFromNBT(pkt.data)
     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord)
   }
 

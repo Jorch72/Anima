@@ -1,8 +1,8 @@
 package net.machinemuse.anima.item
 
-import net.machinemuse.numina.item.moded.ModeChangingItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Icon
+import net.machinemuse.numina.item.ModeChangingItem
 
 /**
  * Author: MachineMuse (Claire Semple)

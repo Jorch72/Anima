@@ -8,7 +8,6 @@ import net.minecraft.world.World
  * Created: 2:35 PM, 7/2/13
  */
 class AnimaEntity(world: World) extends EntityLiving(world) {
-  def getMaxHealth: Int = 20
 
 }
 
