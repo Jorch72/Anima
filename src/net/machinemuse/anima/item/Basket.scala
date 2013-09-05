@@ -3,6 +3,7 @@ package net.machinemuse.anima.item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Icon
 import net.machinemuse.numina.item.ModeChangingItem
+import net.minecraft.entity.player.EntityPlayer
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,7 +22,5 @@ object Basket extends AnimaSubItem with ModeChangingItem {
 
   def getNextModeIcon(stack: ItemStack): Icon = ???
 
-  def cycleModeForward(stack: ItemStack) {}
-
-  def cycleModeBackward(stack: ItemStack) {}
+  def cycleMode(stack: ItemStack, dmode: Int, player: EntityPlayer) {}
 }
