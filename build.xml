@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="install" basedir=".">
+<project name="Anima" default="install" basedir=".">
 
     <property environment="env"/>
 
