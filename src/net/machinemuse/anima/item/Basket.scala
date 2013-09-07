@@ -22,5 +22,5 @@ object Basket extends AnimaSubItem with ModeChangingItem {
 
   def getNextModeIcon(stack: ItemStack): Icon = ???
 
-  def cycleMode(stack: ItemStack, dmode: Int, player: EntityPlayer) {}
+  def cycleMode(stack: ItemStack, dmode: Int) {}
 }
