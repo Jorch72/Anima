@@ -28,7 +28,7 @@ object AnimaItem extends MuseRegistry[AnimaSubItem] {
     item = new AnimaItem(id)
     addSubItem(DreamCatcher)
     addSubItem(Kettle)
-    addSubItem(Basket)
+//    addSubItem(Basket)
   }
 
   def addSubItem(subItem: AnimaSubItem) = put(subItem.name, subItem)
@@ -58,9 +58,7 @@ class AnimaItem(id: Int) extends Item(id) {
   }
 
 
-  override def requiresMultipleRenderPasses = true
-
-  override def getIconFromDamage(par1: Int): Icon = DreamCatcher.icon
+  override def requiresMultipleRenderPasses = true // Required in order to have it use the itemstack-based icon functions
 
   override def getIcon(stack: ItemStack, renderPass: Int, player: EntityPlayer, usingItem: ItemStack, useRemaining: Int): Icon = AnimaItem.lookUpItemStack(stack).map(i => i.icon).getOrElse(null)
 

@@ -1,7 +1,7 @@
 package net.machinemuse.anima.event
 
 import net.minecraftforge.event.ForgeSubscribe
-import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.event.entity.player.{EntityInteractEvent, PlayerInteractEvent}
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action
 import net.minecraft.item.Item
 import net.machinemuse.anima.item.Kettle
@@ -32,4 +32,9 @@ object EventHandler {
   }
 
   def onPlayerLeftClickBlock(e: PlayerInteractEvent) {}
+
+  @ForgeSubscribe
+  def onEntityInteract(e: EntityInteractEvent) {
+
+  }
 }
