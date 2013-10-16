@@ -18,20 +18,20 @@ object Basket
 
   override def getActiveMode(stack: ItemStack): String = super.getActiveMode(stack)
 
-  def getPrevModeIcon(stack: ItemStack): Icon = {
+  def getPrevModeIcon(stack: ItemStack): Option[Icon] = {
     getSelectedSlot(stack) match {
-      case 0 => getContents(stack).last.getIconIndex
-      case x => getContents(stack)(x - 1).getIconIndex
+      case 0 => Some(getContents(stack).last.getIconIndex)
+      case x => Some(getContents(stack)(x - 1).getIconIndex)
     }
   }
 
-  def getCurrentModeIcon(stack: ItemStack): Icon =
-    getContents(stack)(getSelectedSlot(stack)).getIconIndex
+  def getCurrentModeIcon(stack: ItemStack): Option[Icon] =
+    Option(getContents(stack)(getSelectedSlot(stack))).map(i=>i.getIconIndex)
 
-  def getNextModeIcon(stack: ItemStack): Icon = {
+  def getNextModeIcon(stack: ItemStack): Option[Icon] = {
     val c = getContents(stack)
     val s = getSelectedSlot(stack)
-    if (s + 1 >= c.size) c(0).getIconIndex else c(s + 1).getIconIndex
+    if (s + 1 >= c.size) Some(c(0).getIconIndex) else Some(c(s + 1).getIconIndex)
   }
 
   def cycleMode(stack: ItemStack, dmode: Int) {

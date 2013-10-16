@@ -23,7 +23,6 @@ object Anima {
   @PreInit def preinit(e: FMLPreInitializationEvent) {
     WoadSprout
     AnimaBlock.init(2481)
-    AnimaItem.init(24810)
     proxy.PreInit()
   }
 

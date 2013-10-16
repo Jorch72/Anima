@@ -12,6 +12,6 @@ import net.machinemuse.anima.item.DreamCatcher
  */
 
 object AnimaTab extends CreativeTabs(CreativeTabs.getNextID, "Anima") {
-  override def getIconItemStack: ItemStack = DreamCatcher.createItemStack
+  override def getIconItemStack: ItemStack = new ItemStack(DreamCatcher)
 
 }
