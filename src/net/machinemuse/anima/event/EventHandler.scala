@@ -8,6 +8,11 @@ import net.machinemuse.anima.item.Kettle
 import net.minecraft.entity.passive._
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.anima.spirit.GreatCow
+import net.minecraftforge.event.entity.item.ItemTossEvent
+import scala.collection.JavaConverters._
+import net.machinemuse.anima.entity.EntityGreatCow
+import net.machinemuse.numina.general.MuseLogger
+import net.minecraft.entity.EntityLivingBase
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -50,7 +55,7 @@ object EventHandler {
     ) {
       // Animal being fed breeding food
       animal match {
-        case a: EntityCow => GreatCow.addFavour(10, player)
+        case a: EntityCow => GreatCow.addFavour(player, 10)
         case a: EntitySheep =>
         case a: EntityWolf =>
         case a: EntityChicken =>
@@ -60,6 +65,20 @@ object EventHandler {
         case _ =>
       }
 
+    }
+  }
+
+  @ForgeSubscribe
+  def onTossItem(e: ItemTossEvent) {
+    val player = e.player
+    val world = e.player.worldObj
+    MuseLogger.logDebug("Tossed " + e.entityItem.getEntityItem)
+    val list = world.getEntitiesWithinAABB(classOf[EntityLivingBase], player.boundingBox.expand(60.0, 60.0, 60.0))
+    for (entity <- list.asScala) {
+      entity match {
+        case cow: EntityGreatCow => if (!e.isCanceled) e.setCanceled(GreatCow.receiveOffering(player, e.entityItem, cow))
+        case _ =>
+      }
     }
   }
 }

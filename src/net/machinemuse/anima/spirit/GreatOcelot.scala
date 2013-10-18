@@ -1,43 +1,44 @@
 package net.machinemuse.anima.spirit
 
 import net.minecraft.world.World
-import net.machinemuse.anima.entity.{EntityGreatSpirit, EntityGreatCow}
-import net.minecraft.util.{ChatMessageComponent, MathHelper, Icon, AxisAlignedBB}
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.client.renderer.texture.IconRegister
+import net.machinemuse.anima.entity.{EntityGreatOcelot, EntityGreatSpirit, EntityGreatCow}
+import net.minecraft.util.{Icon, ChatMessageComponent, AxisAlignedBB, MathHelper}
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.block.Block
-import net.minecraft.item.{Item, ItemStack}
-import net.machinemuse.anima.block.BlockCowTotem
 import net.machinemuse.numina.general.MuseLogger
-
+import net.minecraft.item.{ItemStack, Item}
+import net.minecraft.block.Block
+import net.machinemuse.anima.block.BlockCowTotem
+import net.minecraft.client.renderer.texture.IconRegister
+import net.minecraft.potion.{Potion, PotionEffect}
 
 /**
  * Author: MachineMuse (Claire Semple)
- * Created: 10:06 PM, 10/15/13
+ * Created: 3:18 PM, 10/16/13
  */
-object GreatCow extends GreatSpirit {
+object GreatOcelot extends GreatSpirit {
+
   def summon(world: World, player: EntityPlayer) {
     summon(world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
   }
 
   def summon(world: World, x: Int, y: Int, z: Int) {
     if (!world.isRemote) {
-      val greatCowEntity = new EntityGreatCow(world)
-      greatCowEntity.setLocationAndAngles(x, y + greatCowEntity.yOffset, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat * 360.0F), 0.0F)
-      greatCowEntity.rotationYawHead = greatCowEntity.rotationYaw
-      greatCowEntity.renderYawOffset = greatCowEntity.rotationYaw
-      world.spawnEntityInWorld(greatCowEntity)
+      val entity = new EntityGreatOcelot(world)
+      entity.setLocationAndAngles(x, y + entity.yOffset, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat * 360.0F), 0.0F)
+      entity.rotationYawHead = entity.rotationYaw
+      entity.renderYawOffset = entity.rotationYaw
+      world.spawnEntityInWorld(entity)
       val effectRadius = 50
       val effectArea = AxisAlignedBB.getBoundingBox(
         x - effectRadius, y - effectRadius, z - effectRadius,
         x + effectRadius, y + effectRadius, z + effectRadius
       )
       import scala.collection.JavaConverters._
-      val entities = world.getEntitiesWithinAABBExcludingEntity(greatCowEntity, effectArea).asScala
+      val entities = world.getEntitiesWithinAABBExcludingEntity(entity, effectArea).asScala
       for (entity <- entities) {
         entity match {
-          case player: EntityPlayer => if (GreatCow.getFavour(player) >= 50) player.heal(10)
+          case player: EntityPlayer => if (GreatOcelot.getFavour(player) >= 50) player.addPotionEffect(new PotionEffect(Potion.jump.getId, 2000))
           case spirit: EntityGreatSpirit => spirit.setDead()
           case _ =>
         }
@@ -66,13 +67,13 @@ object GreatCow extends GreatSpirit {
     }
   }
 
-  def getIcon: Icon = greatcowIcon
+  def getIcon: Icon = icon
 
-  var greatcowIcon: Icon = null
+  var icon: Icon = null
 
   def registerIcons(register: IconRegister): Unit = {
-    greatcowIcon = register.registerIcon("anima:greatcow")
+    icon = register.registerIcon("anima:greatocelot")
   }
 
-  val name = "greatcow"
+  val name = "greatocelot"
 }

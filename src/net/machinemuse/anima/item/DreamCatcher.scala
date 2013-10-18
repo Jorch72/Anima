@@ -6,9 +6,7 @@ package net.machinemuse.anima.item
  */
 object DreamCatcher extends AnimaItemBase("dreamcatcher") {
 
-  val maxDamage: Int = 0
   val noRepair: Boolean = true
   val maxstacksize: Int = 64
-
-  def iconFile = "dreamcatcher"
+  val maxdamage: Int = 0
 }

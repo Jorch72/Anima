@@ -1,6 +1,6 @@
 package net.machinemuse.anima.item
 
-import net.minecraft.item.{ItemFood, Item, ItemStack}
+import net.minecraft.item.{ItemFood, ItemStack}
 import net.minecraft.util.Icon
 import net.machinemuse.numina.item.{InventoriedItem, ModeChangingItem}
 
@@ -9,29 +9,41 @@ import net.machinemuse.numina.item.{InventoriedItem, ModeChangingItem}
  * Created: 3:16 PM, 8/7/13
  */
 object Basket
-  extends Item(12312)
+  extends AnimaItemBase("basket")
   with ModeChangingItem
   with InventoriedItem {
-  def name = "basket"
-
-  def iconFile = "basket"
 
   override def getActiveMode(stack: ItemStack): String = super.getActiveMode(stack)
 
   def getPrevModeIcon(stack: ItemStack): Option[Icon] = {
-    getSelectedSlot(stack) match {
-      case 0 => Some(getContents(stack).last.getIconIndex)
-      case x => Some(getContents(stack)(x - 1).getIconIndex)
+    if (getContents(stack).size == 0) {
+      None
+    } else {
+      getSelectedSlot(stack) match {
+        case 0 => Some(getContents(stack).last.getIconIndex)
+        case x => Some(getContents(stack)(x - 1).getIconIndex)
+      }
     }
   }
 
   def getCurrentModeIcon(stack: ItemStack): Option[Icon] =
-    Option(getContents(stack)(getSelectedSlot(stack))).map(i=>i.getIconIndex)
+    if (getContents(stack).size > getSelectedSlot(stack)) {
+      Option(getContents(stack)(getSelectedSlot(stack))).map(i => i.getIconIndex)
+    } else {
+      None
+    }
 
   def getNextModeIcon(stack: ItemStack): Option[Icon] = {
     val c = getContents(stack)
     val s = getSelectedSlot(stack)
-    if (s + 1 >= c.size) Some(c(0).getIconIndex) else Some(c(s + 1).getIconIndex)
+    if (c.size == 0) {
+      None
+    } else if (s + 1 >= c.size) {
+      Some(c(0).getIconIndex)
+    } else {
+      Some(c(s + 1).getIconIndex)
+    }
+
   }
 
   def cycleMode(stack: ItemStack, dmode: Int) {
@@ -44,4 +56,8 @@ object Basket
   }
 
   def canStoreItem(stack: ItemStack): Boolean = stack.getItem.isInstanceOf[ItemFood]
+
+  val maxdamage: Int = 0
+  val noRepair: Boolean = true
+  val maxstacksize: Int = 1
 }

@@ -11,3 +11,11 @@ object ItemIDManager {
     id
   }
 }
+
+object BlockIDManager {
+  var id = 1234
+  def getID(unlocalizedname: String): Int = {
+    id = id + 1
+    id
+  }
+}

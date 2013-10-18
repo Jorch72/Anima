@@ -5,6 +5,9 @@ anima.woadLeavesTrimmed.name=Woad Leaves (Trimmed)
 anima.woadLeavesFull.name=Woad Leaves (Full)
 anima.woadFlowers.name=Woad Flowers
 
-anima.dreamCatcher.name=Dream Catcher
+item.dreamcatcher.name=Dream Catcher
+item.summoningstaff.name=Summoning Staff
+item.kettle.name=Kettle
+item.basket.name=Basket
 
 itemGroup.Anima=Anima
