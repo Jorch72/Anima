@@ -4,7 +4,7 @@ import net.machinemuse.numina.item.ModeChangingItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Icon
 import net.minecraft.client.renderer.texture.IconRegister
-import net.machinemuse.anima.spirit.{GreatCow, GreatSpiritListings}
+import net.machinemuse.anima.spirit.GreatSpiritListings
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 
@@ -17,22 +17,11 @@ object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingI
   override val noRepair = true
   override val maxstacksize = 1
 
-  def getPrevModeIcon(stack: ItemStack): Option[Icon] = {
-    val index = currentSpiritIndex(stack)
-    if (index > 0) Some(GreatSpiritListings.listings(index - 1).getIcon)
-    else Some(GreatSpiritListings.listings.last.getIcon)
-  }
 
-  def getCurrentModeIcon(stack: ItemStack): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack)).map(sp => sp.getIcon)
+  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack, player)).map(sp => sp.getIcon)
 
-  def getNextModeIcon(stack: ItemStack): Option[Icon] = {
-    Some(GreatSpiritListings.listings((currentSpiritIndex(stack) + 1) % GreatSpiritListings.listings.size).getIcon)
-  }
-
-  def currentSpiritIndex(stack: ItemStack) = GreatSpiritListings.listings.indexWhere(sp => sp.name == getActiveMode(stack))
-
-  def cycleMode(stack: ItemStack, dmode: Int): Unit = {
-    setActiveMode(stack, GreatSpiritListings.listings((currentSpiritIndex(stack) + dmode + GreatSpiritListings.listings.size) % GreatSpiritListings.listings.size).name)
+  def getValidModes(stack: ItemStack, player:EntityPlayer) = {
+    for (spirit <- GreatSpiritListings.listings) yield spirit.name
   }
 
 
@@ -44,7 +33,7 @@ object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingI
   }
 
   override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
-    GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack)).map(gs=>gs.summon(world, player))
+    GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack, player)).map(gs => gs.summon(world, player))
     stack
   }
 }
