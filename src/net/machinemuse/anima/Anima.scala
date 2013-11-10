@@ -19,7 +19,7 @@ import net.machinemuse.anima.plants.PlantTileEntity
  * Author: MachineMuse (Claire Semple)
  * Created: 6:06 AM, 6/18/13
  */
-@Mod(modid = "anima", modLanguage = "scala")
+@Mod(modid = "anima", modLanguage = "scala", dependencies = "required-after:numina")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, tinyPacketHandler = classOf[AnimaPacketHandler])
 object Anima {
   val modid = "anima"
