@@ -80,7 +80,7 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
     val bonusChance = 100.0
     val threshold = bonusChance * odds * 5.0 / 16384.0
     if (block != null && block.getTickRandomly && block.isInstanceOf[IPlantable]) {
-      block.updateTick(worldObj, x, y, z, MuseRandom.random)
+      block.updateTick(worldObj, x, y, z, MuseRandom)
     }
   }
 

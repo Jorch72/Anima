@@ -3,7 +3,7 @@ package net.machinemuse.anima
 
 import cpw.mods.fml.common.{Mod, FMLCommonHandler}
 import cpw.mods.fml.common.network.NetworkMod
-import net.machinemuse.anima.block.{BlockCowTotem, AnimaBlock}
+import net.machinemuse.anima.block.{BlockIncenseBurner, BlockCowTotem, AnimaBlock}
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLPreInitializationEvent, FMLInitializationEvent}
 import cpw.mods.fml.relauncher.Side
 import net.machinemuse.anima.plants.parts.WoadSprout
@@ -35,6 +35,7 @@ object Anima {
     BlockCowTotem
     GameRegistry.registerBlock(BlockCowTotem, "cowtotem")
 
+    GameRegistry.registerBlock(BlockIncenseBurner, "incenseburner")
 
     MinecraftForge.EVENT_BUS.register(EventHandler)
     registerEntity(classOf[EntityGreatCow], "entityGreatCowManifestation", 2588)
