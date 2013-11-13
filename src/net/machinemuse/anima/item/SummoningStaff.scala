@@ -18,7 +18,7 @@ object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingI
   override val maxstacksize = 1
 
 
-  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack, player)).map(sp => sp.getIcon)
+  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == mode).map(sp => sp.getIcon)
 
   def getValidModes(stack: ItemStack, player:EntityPlayer) = {
     for (spirit <- GreatSpiritListings.listings) yield spirit.name
