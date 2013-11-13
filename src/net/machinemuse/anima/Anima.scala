@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.Side
 import net.machinemuse.anima.plants.parts.WoadSprout
 import net.machinemuse.anima.item.{Kettle, Basket, DreamCatcher, SummoningStaff}
 import cpw.mods.fml.common.registry.{GameRegistry, EntityRegistry}
-import net.machinemuse.anima.entity.{AnimaEntityGrowthSpirit, EntityGreatOcelot, EntityGreatCow}
+import net.machinemuse.anima.entity.{AnimaEntityHarvestSprite, EntityGreatOcelot, EntityGreatCow}
 import net.minecraftforge.common.MinecraftForge
 import net.machinemuse.anima.event.EventHandler
 import net.minecraft.entity.Entity
@@ -39,7 +39,7 @@ object Anima {
     MinecraftForge.EVENT_BUS.register(EventHandler)
     registerEntity(classOf[EntityGreatCow], "entityGreatCowManifestation", 2588)
     registerEntity(classOf[EntityGreatOcelot], "entityGreatOcelotManifestation", 2589)
-    registerEntity(classOf[AnimaEntityGrowthSpirit], "entityGrowthSpirit", 2590)
+    registerEntity(classOf[AnimaEntityHarvestSprite], "entityHarvestSprite", 2590)
     proxy.PreInit()
   }
 

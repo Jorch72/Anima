@@ -102,7 +102,7 @@ class PlantItemBlock(id: Int) extends ItemBlock(id) {
   setUnlocalizedName("anima.plantItemBlockDefault")
 
 
-  //  override def addInformation(par1ItemStack: ItemStack, par2EntityPlayer: EntityPlayer, par3List: util.List[_], par4: Boolean) {
+  //  override def addInformation(par1ItemStack: ItemStack, par2EntityPlayer: EntityPlayer, par3List: util.List[_], z: Boolean) {
   //    par3List.asInstanceOf[util.List[String]].add(getUnlocalizedName(par1ItemStack))
   //  }
 

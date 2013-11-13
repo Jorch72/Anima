@@ -4,7 +4,9 @@ import cpw.mods.fml.client.registry.RenderingRegistry
 import net.minecraftforge.client.MinecraftForgeClient
 import net.machinemuse.anima.plants.{PlantBlock, PlantRenderer}
 import net.machinemuse.anima.entity.render.{RenderGreatOcelot, RenderGreatCow}
-import net.machinemuse.anima.entity.{EntityGreatOcelot, EntityGreatCow}
+import net.machinemuse.anima.entity.{AnimaEntityHarvestSprite, EntityGreatOcelot, EntityGreatCow}
+import net.minecraft.client.renderer.entity.RenderSnowball
+import net.machinemuse.anima.item.DreamCatcher
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -27,6 +29,7 @@ class ClientProxy extends CommonProxy {
 
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatCow], RenderGreatCow)
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatOcelot], RenderGreatOcelot)
+    RenderingRegistry.registerEntityRenderingHandler(classOf[AnimaEntityHarvestSprite], new RenderSnowball(DreamCatcher))
     //    MinecraftForgeClient.registerItemRenderer(AnimaItem.item.itemID, AnimaItemRenderer)
   }
 }
