@@ -22,7 +22,6 @@ class EntityGreatChicken(world: World) extends EntityChicken(world) with EntityG
 class EntityGreatSheep(world: World) extends EntitySheep(world) with EntityGreatSpirit
 
 trait EntityGreatSpirit extends EntityAnimal {
-
   this.yOffset = 6.5f
   this.width = 4.5F
   this.height = 6.5F

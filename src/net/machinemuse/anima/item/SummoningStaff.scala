@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.IconRegister
 import net.machinemuse.anima.spirit.GreatSpiritListings
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
+import net.machinemuse.anima.entity.AnimaEntityGrowthSpirit
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -33,7 +34,9 @@ object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingI
   }
 
   override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
-    GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack, player)).map(gs => gs.summon(world, player))
+
+    world.spawnEntityInWorld(new AnimaEntityGrowthSpirit(world))
+//    GreatSpiritListings.listings.find(sp => sp.name == getActiveMode(stack, player)).map(gs => gs.summon(world, player))
     stack
   }
 }
