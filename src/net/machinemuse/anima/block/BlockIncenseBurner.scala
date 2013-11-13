@@ -8,6 +8,17 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.numina.scala.OptionCast
 import cpw.mods.fml.common.registry.GameRegistry
+import net.machinemuse.anima.AnimaTab
+import net.machinemuse.numina.tileentity.MuseTileEntity
+import net.minecraft.item.ItemStack
+import net.minecraft.util.AxisAlignedBB
+import net.machinemuse.numina.random.MuseRandom
+import net.machinemuse.numina.render.ParticleDictionary
+import net.machinemuse.anima.entity.{AnimaEntitySprite, AnimaEntityHarvestSprite}
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.command.IEntitySelector
+import net.minecraft.entity.Entity
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -16,6 +27,7 @@ import cpw.mods.fml.common.registry.GameRegistry
 object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incenseburner"), Material.clay) {
 
   GameRegistry.registerTileEntity(classOf[TileEntityIncenseBurner], "incenseburner")
+  setCreativeTab(AnimaTab)
 
   override def createNewTileEntity(world: World): TileEntity = new TileEntityIncenseBurner
 
@@ -34,9 +46,95 @@ object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incensebu
           val stack = te.incense.get
           te.incense = None
           player.dropPlayerItem(stack)
+          te.isBurning = false
         }
     }
     true
   }
 
+}
+
+class TileEntityIncenseBurner extends MuseTileEntity {
+  var incense: Option[ItemStack] = None
+  var isBurning = false
+  val radius = 16
+  val area = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0)
+
+  updateArea()
+
+  def updateArea() {
+    area.setBounds(
+      xCoord - radius, yCoord - radius, zCoord - radius,
+      xCoord + radius, yCoord + radius, zCoord + radius)
+  }
+
+  def hasIncense = {
+    incense match {
+      case Some(i) => i.getItem eq Incense
+      case None => false
+    }
+  }
+
+  override def updateEntity() {
+    if (isBurning) {
+      incense match {
+        case None => isBurning = false
+        case Some(stack) =>
+          worldObj.spawnParticle(ParticleDictionary.smoke, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 0, 0.01, 0)
+          attemptSpawnSprite()
+          if (stack.attemptDamageItem(1, MuseRandom)) {
+            incense = None
+          }
+      }
+    }
+  }
+
+  def attemptSpawnSprite() {
+    if (!worldObj.isRemote && MuseRandom.nextDouble < 0.1) {
+      updateArea()
+      incense map {
+        stack =>
+          tryToSpawn(new AnimaEntityHarvestSprite(worldObj, xCoord, yCoord, zCoord).setSpot(between(area.minX, area.maxX), between(area.minY, area.maxY), between(area.minZ, area.maxZ)), stack)
+        //          tryToSpawn(new AnimaEntityHarvestSprite(worldObj), stack)
+      }
+    }
+  }
+
+  val spriteSelector = new IEntitySelector {
+    def isEntityApplicable(entity: Entity): Boolean = entity.isInstanceOf[AnimaEntitySprite]
+  }
+
+  def tryToSpawn(entity: AnimaEntitySprite, stack: ItemStack) {
+    if (entity.getCanSpawnHere && entity.isValidIncense(stack)) {
+      val nearbySprites = worldObj.getEntitiesWithinAABBExcludingEntity(entity, area, spriteSelector)
+      if (nearbySprites.size() < 16) {
+        worldObj.spawnEntityInWorld(entity)
+      }
+    }
+  }
+
+  private def between(min: Double, max: Double) = {
+    min + (max - min) * MuseRandom.nextDouble
+  }
+
+  override def writeToNBT(nbt: NBTTagCompound) {
+    super.writeToNBT(nbt)
+    incense map {
+      stack =>
+        writeItemStack(nbt, "incense", stack)
+    }
+    if (isBurning) {
+      nbt.setBoolean("burning", true)
+    }
+    MuseLogger.logDebug(nbt.toString)
+  }
+
+  override def readFromNBT(nbt: NBTTagCompound) {
+    super.readFromNBT(nbt)
+    getItemStack(nbt, "incense") map (is => incense = Some(is))
+    getBoolean(nbt, "burning") map (b => isBurning = b)
+    MuseLogger.logDebug(incense.toString)
+  }
+
+  override def canUpdate: Boolean = true
 }

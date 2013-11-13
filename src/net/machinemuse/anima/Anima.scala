@@ -7,12 +7,17 @@ import net.machinemuse.anima.block.{BlockIncenseBurner, BlockCowTotem, AnimaBloc
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLPreInitializationEvent, FMLInitializationEvent}
 import cpw.mods.fml.relauncher.Side
 import net.machinemuse.anima.plants.parts.WoadSprout
-import net.machinemuse.anima.item.{Kettle, Basket, DreamCatcher, SummoningStaff}
+import net.machinemuse.anima.item._
 import cpw.mods.fml.common.registry.{GameRegistry, EntityRegistry}
 import net.machinemuse.anima.entity.{AnimaEntityHarvestSprite, EntityGreatOcelot, EntityGreatCow}
 import net.minecraftforge.common.MinecraftForge
 import net.machinemuse.anima.event.EventHandler
 import net.minecraft.entity.Entity
+import cpw.mods.fml.client.registry.RenderingRegistry
+import net.machinemuse.anima.plants.{PlantBlock, PlantRenderer}
+import net.minecraftforge.client.MinecraftForgeClient
+import net.machinemuse.anima.entity.render.{BillboardRenderer, RenderGreatOcelot, RenderGreatCow}
+import net.minecraft.client.renderer.entity.RenderSnowball
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -31,6 +36,7 @@ object Anima {
     SummoningStaff
     Kettle
     Basket
+    Incense
 
     BlockCowTotem
     GameRegistry.registerBlock(BlockCowTotem, "cowtotem")
@@ -55,4 +61,31 @@ object Anima {
   def registerEntity(entityClass: Class[_ <: Entity], name: String, id: Int, trackingRange: Int = 64, ticksPerUpdate: Int = 20, sendsVelocityUpdates: Boolean = true) {
     EntityRegistry.registerModEntity(entityClass, name, id, this, trackingRange, ticksPerUpdate, sendsVelocityUpdates)
   }
+}
+
+
+class CommonProxy {
+  def PreInit() {}
+
+  def Init() {}
+
+  def PostInit() {}
+}
+
+class ClientProxy extends CommonProxy {
+  override def Init() {
+    RenderingRegistry.registerBlockHandler(PlantRenderer)
+    MinecraftForgeClient.registerItemRenderer(PlantBlock.item.itemID, PlantRenderer)
+
+
+
+    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatCow], RenderGreatCow)
+    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatOcelot], RenderGreatOcelot)
+    RenderingRegistry.registerEntityRenderingHandler(classOf[AnimaEntityHarvestSprite], new BillboardRenderer(Anima.modid + ":textures/entities/sparkle.png", 0.5))
+    //    MinecraftForgeClient.registerItemRenderer(AnimaItem.item.itemID, AnimaItemRenderer)
+  }
+}
+
+class ServerProxy extends CommonProxy {
+
 }

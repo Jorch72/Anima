@@ -5,35 +5,28 @@ import net.minecraft.entity.ai.EntityAIWander
 import net.minecraft.block.Block
 import net.minecraftforge.common.IPlantable
 import net.machinemuse.numina.random.MuseRandom
-import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.anima.block.TileEntityIncenseBurner
 import net.minecraft.item.ItemStack
-import net.machinemuse.anima.item.Incense
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:58 PM, 11/12/13
  */
 class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
-  this.tasks.addTask(0, new EntityAIWander(this, 0.5))
 
-  this.setSize(0.5f, 0.5f)
-
-  var tetherX = 0
-  var tetherY = 0
-  var tetherZ = 0
-
-  override def onUpdate() {
-    tickNearbyBlocks()
-    moveRandomly()
-    checkDeathConditions()
+  def this(world: World, tetherX: Int, tetherY: Int, tetherZ: Int) {
+    this(world)
+    this.tetherX = tetherX
+    this.tetherY = tetherY
+    this.tetherZ = tetherZ
   }
 
   def checkDeathConditions() {
+    val check = world.getBlockTileEntity(tetherX, tetherY, tetherZ)
     world.getBlockTileEntity(tetherX, tetherY, tetherZ) match {
-      case te:TileEntityIncenseBurner =>
-        if(te.isBurning && te.hasIncense && isValidIncense(te.incense.get)) {
-          // stay alive?
+      case te: TileEntityIncenseBurner =>
+        if (te.isBurning && te.hasIncense && isValidIncense(te.incense.get)) {
         } else {
           maybeDie()
         }
@@ -42,17 +35,15 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
   }
 
   def maybeDie() {
-    if(MuseRandom.nextDouble < 0.01) {
-      this.kill()
+    if (MuseRandom.nextDouble < 0.01) {
+      this.setDead()
     }
   }
 
-  def isValidIncense(stack:ItemStack) = true
-
   def moveRandomly() {
-    motionX += (MuseRandom.nextDouble - 0.5) * 0.001 + (tetherX - posX) * 0.0002
-    motionY += (MuseRandom.nextDouble - 0.5) * 0.001 + (tetherY - posY) * 0.0002
-    motionZ += (MuseRandom.nextDouble - 0.5) * 0.001 + (tetherZ - posZ) * 0.0002
+    motionX += (MuseRandom.nextDouble - 0.5) * 0.01 + (spotX - posX) * 0.002
+    motionY += (MuseRandom.nextDouble - 0.5) * 0.01 + (spotY - posY) * 0.002
+    motionZ += (MuseRandom.nextDouble - 0.5) * 0.01 + (spotZ - posZ) * 0.002
     normalizeMotion(0.01)
     setPositionAndUpdate(
       posX + motionX,
@@ -63,8 +54,8 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
   def normalizeMotion(ratio: Double) {
     val sumsq = Math.sqrt(
       motionX * motionX +
-      motionY * motionY +
-      motionZ * motionZ)
+        motionY * motionY +
+        motionZ * motionZ)
     motionX *= ratio / sumsq
     motionY *= ratio / sumsq
     motionZ *= ratio / sumsq
@@ -95,4 +86,5 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
    */
   override def doesEntityNotTriggerPressurePlate: Boolean = true
 
+  def isValidIncense(stack: ItemStack): Boolean = true
 }

@@ -5,7 +5,7 @@ package net.machinemuse.anima.item
  * Created: 1:18 AM, 11/13/13
  */
 object Incense extends AnimaItemBase("incense") {
-  val maxdamage: Int = 100
+  val maxdamage: Int = 6000 // 5 minutes
   val noRepair: Boolean = false
   val maxstacksize: Int = 1
 }
