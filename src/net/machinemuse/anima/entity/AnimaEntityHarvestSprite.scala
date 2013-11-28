@@ -56,9 +56,11 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
       motionX * motionX +
         motionY * motionY +
         motionZ * motionZ)
-    motionX *= ratio / sumsq
-    motionY *= ratio / sumsq
-    motionZ *= ratio / sumsq
+    if(sumsq > ratio) {
+      motionX *= ratio / sumsq
+      motionY *= ratio / sumsq
+      motionZ *= ratio / sumsq
+    }
   }
 
   def tickNearbyBlocks() {

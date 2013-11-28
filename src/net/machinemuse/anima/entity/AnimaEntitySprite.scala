@@ -29,7 +29,7 @@ abstract class AnimaEntitySprite(world: World) extends EntityCreature(world) {
     spotX = x
     spotY = y
     spotZ = z
-    setPositionAndUpdate(x,y,z)
+    setPositionAndUpdate(x, y, z)
     this
   }
 
@@ -41,23 +41,48 @@ abstract class AnimaEntitySprite(world: World) extends EntityCreature(world) {
   }
 
   override def onUpdate() {
-    if(!world.isRemote) {
-      tickNearbyBlocks()
+//    spotX = dataWatcher.getWatchableObjectInt(14)
+//    spotY = dataWatcher.getWatchableObjectInt(15)
+//    spotZ = dataWatcher.getWatchableObjectInt(16)
+
+
+    if (!world.isRemote) {
       moveRandomly()
+      tickNearbyBlocks()
       checkDeathConditions()
+    } else {
+      updateMotion()
     }
   }
+
+  def updateMotion() {
+    setPositionAndUpdate(
+      posX + motionX,
+      posY + motionY,
+      posZ + motionZ)
+  }
+
+  override def entityInit() {
+    super.entityInit()
+//    this.dataWatcher.addObject(14, spotX.toInt)
+//    this.dataWatcher.addObject(15, spotY.toInt)
+//    this.dataWatcher.addObject(16, spotZ.toInt)
+  }
+
   def tickNearbyBlocks()
+
   def moveRandomly()
+
   def checkDeathConditions()
 
   override def writeEntityToNBT(nbt: NBTTagCompound) {
     super.writeEntityToNBT(nbt)
     nbt.setIntArray("tetherspot", Array(tetherX, tetherY, tetherZ, spotX.toInt, spotY.toInt, spotZ.toInt))
   }
+
   override def readEntityFromNBT(nbt: NBTTagCompound) {
     super.readEntityFromNBT(nbt)
-    if(nbt.hasKey("tetherspot")) {
+    if (nbt.hasKey("tetherspot")) {
       val tetherspot = nbt.getIntArray("tetherspot")
       tetherX = tetherspot(0)
       tetherY = tetherspot(1)

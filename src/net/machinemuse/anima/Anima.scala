@@ -58,7 +58,7 @@ object Anima {
     proxy.PostInit()
   }
 
-  def registerEntity(entityClass: Class[_ <: Entity], name: String, id: Int, trackingRange: Int = 64, ticksPerUpdate: Int = 20, sendsVelocityUpdates: Boolean = true) {
+  def registerEntity(entityClass: Class[_ <: Entity], name: String, id: Int, trackingRange: Int = 64, ticksPerUpdate: Int = 1, sendsVelocityUpdates: Boolean = true) {
     EntityRegistry.registerModEntity(entityClass, name, id, this, trackingRange, ticksPerUpdate, sendsVelocityUpdates)
   }
 }
@@ -81,7 +81,7 @@ class ClientProxy extends CommonProxy {
 
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatCow], RenderGreatCow)
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatOcelot], RenderGreatOcelot)
-    RenderingRegistry.registerEntityRenderingHandler(classOf[AnimaEntityHarvestSprite], new BillboardRenderer(Anima.modid + ":textures/entities/sparkle.png", 0.5))
+    RenderingRegistry.registerEntityRenderingHandler(classOf[AnimaEntityHarvestSprite], new BillboardRenderer(Anima.modid + ":textures/entities/forestsprite1.png", 0.5))
     //    MinecraftForgeClient.registerItemRenderer(AnimaItem.item.itemID, AnimaItemRenderer)
   }
 }

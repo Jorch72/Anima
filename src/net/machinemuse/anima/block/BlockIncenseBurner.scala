@@ -26,7 +26,10 @@ import net.machinemuse.numina.general.MuseLogger
  */
 object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incenseburner"), Material.clay) {
 
+  setUnlocalizedName("incenseburner")
+
   GameRegistry.registerTileEntity(classOf[TileEntityIncenseBurner], "incenseburner")
+
   setCreativeTab(AnimaTab)
 
   override def createNewTileEntity(world: World): TileEntity = new TileEntityIncenseBurner
@@ -94,7 +97,7 @@ class TileEntityIncenseBurner extends MuseTileEntity {
       updateArea()
       incense map {
         stack =>
-          tryToSpawn(new AnimaEntityHarvestSprite(worldObj, xCoord, yCoord, zCoord).setSpot(between(area.minX, area.maxX), between(area.minY, area.maxY), between(area.minZ, area.maxZ)), stack)
+          tryToSpawn(new AnimaEntityHarvestSprite(worldObj, xCoord, yCoord, zCoord).setSpot(between(area.minX, area.maxX), between(yCoord, (yCoord+area.maxY)/2.0), between(area.minZ, area.maxZ)), stack)
         //          tryToSpawn(new AnimaEntityHarvestSprite(worldObj), stack)
       }
     }
@@ -126,14 +129,12 @@ class TileEntityIncenseBurner extends MuseTileEntity {
     if (isBurning) {
       nbt.setBoolean("burning", true)
     }
-    MuseLogger.logDebug(nbt.toString)
   }
 
   override def readFromNBT(nbt: NBTTagCompound) {
     super.readFromNBT(nbt)
     getItemStack(nbt, "incense") map (is => incense = Some(is))
     getBoolean(nbt, "burning") map (b => isBurning = b)
-    MuseLogger.logDebug(incense.toString)
   }
 
   override def canUpdate: Boolean = true
