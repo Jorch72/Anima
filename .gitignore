@@ -1,7 +1,4 @@
 /*
-!/resource
-!/resources
-!/mods
 !/assets
 !/src
 !/mcmod.info
@@ -20,6 +17,3 @@ src/minecraft/net/minecraft/*
 
 src/minecraft/net/minecraft/src/*
 !src/minecraft/net/minecraft/src/ModelPlayer.java
-
-resources/*
-!resources/machinemuse
