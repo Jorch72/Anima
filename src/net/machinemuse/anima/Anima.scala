@@ -3,7 +3,7 @@ package net.machinemuse.anima
 
 import cpw.mods.fml.common.{Mod, FMLCommonHandler}
 import cpw.mods.fml.common.network.NetworkMod
-import net.machinemuse.anima.block.{BlockIncenseBurner, BlockCowTotem, AnimaBlock}
+import net.machinemuse.anima.block._
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLPreInitializationEvent, FMLInitializationEvent}
 import cpw.mods.fml.relauncher.Side
 import net.machinemuse.anima.plants.parts.WoadSprout
@@ -13,7 +13,7 @@ import net.machinemuse.anima.entity.{AnimaEntityHarvestSprite, EntityGreatOcelot
 import net.minecraftforge.common.MinecraftForge
 import net.machinemuse.anima.event.EventHandler
 import net.minecraft.entity.Entity
-import cpw.mods.fml.client.registry.RenderingRegistry
+import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
 import net.machinemuse.anima.plants.{PlantBlock, PlantRenderer}
 import net.minecraftforge.client.MinecraftForgeClient
 import net.machinemuse.anima.entity.render.{BillboardRenderer, RenderGreatOcelot, RenderGreatCow}
@@ -78,6 +78,8 @@ class ClientProxy extends CommonProxy {
     MinecraftForgeClient.registerItemRenderer(PlantBlock.item.itemID, PlantRenderer)
 
 
+    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityIncenseBurner], IncenseBurnerRenderer)
+    RenderingRegistry.registerBlockHandler(IncenseBurnerRenderer)
 
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatCow], RenderGreatCow)
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityGreatOcelot], RenderGreatOcelot)

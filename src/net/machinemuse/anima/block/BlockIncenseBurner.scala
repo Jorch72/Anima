@@ -1,9 +1,9 @@
 package net.machinemuse.anima.block
 
-import net.minecraft.block.BlockContainer
+import net.minecraft.block.{Block, BlockContainer}
 import net.machinemuse.anima.item.{Incense, BlockIDManager}
 import net.minecraft.block.material.Material
-import net.minecraft.world.World
+import net.minecraft.world.{IBlockAccess, World}
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.numina.scala.OptionCast
@@ -13,11 +13,17 @@ import net.machinemuse.numina.tileentity.MuseTileEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.AxisAlignedBB
 import net.machinemuse.numina.random.MuseRandom
-import net.machinemuse.numina.render.ParticleDictionary
+import net.machinemuse.numina.render.{MuseTESR, ParticleDictionary}
 import net.machinemuse.anima.entity.{AnimaEntitySprite, AnimaEntityHarvestSprite}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.command.IEntitySelector
 import net.minecraft.entity.Entity
+import cpw.mods.fml.client.registry.{RenderingRegistry, ISimpleBlockRenderingHandler}
+import net.minecraft.client.renderer.RenderBlocks
+import net.minecraftforge.client.model.obj.WavefrontObject
+import net.minecraftforge.client.model.AdvancedModelLoader
+import org.lwjgl.opengl.GL11._
+import scala.Some
 import net.machinemuse.numina.general.MuseLogger
 
 /**
@@ -28,11 +34,20 @@ object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incensebu
 
   setUnlocalizedName("incenseburner")
 
+  setLightOpacity(0)
+
   GameRegistry.registerTileEntity(classOf[TileEntityIncenseBurner], "incenseburner")
 
   setCreativeTab(AnimaTab)
 
   override def createNewTileEntity(world: World): TileEntity = new TileEntityIncenseBurner
+
+  override def renderAsNormalBlock: Boolean = false
+
+  override def isOpaqueCube: Boolean = false
+
+  override def getRenderType: Int = IncenseBurnerRenderer.getRenderId
+
 
   /**
    * Called upon block activation (right click on the block.)
@@ -97,7 +112,7 @@ class TileEntityIncenseBurner extends MuseTileEntity {
       updateArea()
       incense map {
         stack =>
-          tryToSpawn(new AnimaEntityHarvestSprite(worldObj, xCoord, yCoord, zCoord).setSpot(between(area.minX, area.maxX), between(yCoord, (yCoord+area.maxY)/2.0), between(area.minZ, area.maxZ)), stack)
+          tryToSpawn(new AnimaEntityHarvestSprite(worldObj, xCoord, yCoord, zCoord).setSpot(between(area.minX, area.maxX), between(yCoord, (yCoord + area.maxY) / 2.0), between(area.minZ, area.maxZ)), stack)
         //          tryToSpawn(new AnimaEntityHarvestSprite(worldObj), stack)
       }
     }
@@ -138,4 +153,43 @@ class TileEntityIncenseBurner extends MuseTileEntity {
   }
 
   override def canUpdate: Boolean = true
+}
+
+object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler {
+  val incensestick = AdvancedModelLoader.loadModel("/assets/anima/models/incenseStick.obj").asInstanceOf[WavefrontObject]
+  val incenseholder = AdvancedModelLoader.loadModel("/assets/anima/models/incenseHolderAndCore.obj").asInstanceOf[WavefrontObject]
+  val renderID = RenderingRegistry.getNextAvailableRenderId
+
+  def renderInventoryBlock(block: Block, metadata: Int, modelID: Int, renderer: RenderBlocks): Unit = {
+    this.bindTextureByName("anima:models/incense.png")
+    glPushMatrix()
+    val scale: Double = 0.0625
+    glScaled(scale, scale, scale)
+    incenseholder.renderAll()
+    glPopMatrix()
+  }
+
+  def renderWorldBlock(world: IBlockAccess, x: Int, y: Int, z: Int, block: Block, modelId: Int, renderer: RenderBlocks): Boolean = true
+
+  def shouldRender3DInInventory(): Boolean = true
+
+  def getRenderId: Int = renderID
+
+  def renderTileEntityAt(tileentity: TileEntity, x: Double, y: Double, z: Double, partialTickTime: Float): Unit = {
+    this.bindTextureByName("anima:models/incense.png")
+    glPushMatrix()
+    glTranslated(x + 0.5, y, z + 0.5)
+    val scale: Double = 0.0625
+    glScaled(scale, scale, scale)
+    incenseholder.renderAll()
+    if (tileentity.asInstanceOf[TileEntityIncenseBurner].hasIncense) {
+      val stack = tileentity.asInstanceOf[TileEntityIncenseBurner].incense.get
+      val length:Double = 1.0D - (stack.getItemDamage.toDouble / stack.getMaxDamage.toDouble)
+      glTranslated(4.046D, 1.688D, 0.092D)
+      glRotated(75, 0, 0, 1)
+      glScaled(1, length, 1)
+      incensestick.renderAll()
+    }
+    glPopMatrix()
+  }
 }

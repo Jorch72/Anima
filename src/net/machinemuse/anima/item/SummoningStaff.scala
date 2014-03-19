@@ -14,10 +14,9 @@ import net.machinemuse.anima.entity.AnimaEntityHarvestSprite
  * Created: 10:52 PM, 10/15/13
  */
 object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingItem {
-  override val maxdamage = 0
-  override val noRepair = true
-  override val maxstacksize = 1
-
+  setMaxDamage(0)// 5 minutes
+  setMaxStackSize(1)
+  setNoRepair()
 
   def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == mode).map(sp => sp.getIcon)
 
