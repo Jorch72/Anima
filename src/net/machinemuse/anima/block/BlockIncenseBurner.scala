@@ -175,7 +175,7 @@ object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler 
 
   def getRenderId: Int = renderID
 
-  def renderTileEntityAt(tileentity: TileEntity, x: Double, y: Double, z: Double, partialTickTime: Float): Unit = {
+  override def renderAt(tileentity: TileEntity, x: Double, y: Double, z: Double, partialTickTime: Float): Unit = {
     this.bindTextureByName("anima:models/incense.png")
     glPushMatrix()
     glTranslated(x + 0.5, y, z + 0.5)
