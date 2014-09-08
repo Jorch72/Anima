@@ -2,15 +2,13 @@
     "modid": "Anima",
     "name": "Anima",
     "description": "Shamanism? Animism? Something like that. Less techy anyway.",
-    "version": "@MOD_VERSION@",
-    "mcversion": "1.5.2",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
     "url": "http://machinemuse.net/",
     "updateUrl": "",
     "authors": [ "MachineMuse" ],
-    "credits": "MachineMuse",
+    "credits": "Written by MachineMuse.",
     "logoFile": "",
-    "screenshots": [ ],
-    "parent": "",
-    "requiredMods": [ "Forge" ],
-    "dependencies": [  ]
+    "screenshots": [],
+    "dependencies": []
 }]
