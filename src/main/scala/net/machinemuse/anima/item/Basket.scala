@@ -1,9 +1,9 @@
 package net.machinemuse.anima.item
 
-import net.minecraft.item.{ItemFood, ItemStack}
-import net.minecraft.util.Icon
 import net.machinemuse.numina.item.{InventoriedItem, ModeChangingItem}
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.{ItemFood, ItemStack}
+import net.minecraft.util.IIcon
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,7 +14,7 @@ object Basket
   with ModeChangingItem
   with InventoriedItem {
 
-  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] =
+  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[IIcon] =
     if (getContents(stack).size > getSelectedSlot(stack)) {
       Option(getContents(stack)(getSelectedSlot(stack))).map(i => i.getIconIndex)
     } else {
@@ -29,6 +29,6 @@ object Basket
   val maxstacksize: Int = 1
 
   def getValidModes(stack: ItemStack, player: EntityPlayer): Seq[String] = {
-    for(k <- 0 until getContents(stack).size) yield k.toString
+    for (k <- 0 until getContents(stack).size) yield k.toString
   }
 }

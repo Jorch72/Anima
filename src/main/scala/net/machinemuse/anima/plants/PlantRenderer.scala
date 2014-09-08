@@ -4,8 +4,8 @@ import cpw.mods.fml.client.registry.{RenderingRegistry, ISimpleBlockRenderingHan
 import net.minecraft.world.IBlockAccess
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.{Tessellator, RenderBlocks}
-import net.minecraft.client.renderer.texture.{TextureManager, IconRegister}
-import net.minecraft.util.Icon
+import net.minecraft.client.renderer.texture.{TextureManager, IIconRegister}
+import net.minecraft.util.IIcon
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -30,8 +30,6 @@ object PlantRenderer extends ISimpleBlockRenderingHandler with MuseItemRenderer 
     }
     true
   }
-
-  def shouldRender3DInInventory(): Boolean = true
 
   // Item alone as an entity e.g. dropped
   def renderEntity(item: ItemStack, renderBlocks: RenderBlocks, entity: EntityItem) {
@@ -67,18 +65,20 @@ object PlantRenderer extends ISimpleBlockRenderingHandler with MuseItemRenderer 
       part => part.render(0, 0, 0, renderBlocks)
     }
   }
+
+  override def shouldRender3DInInventory(modelId: Int): Boolean = true
 }
 
 abstract class PlantRenderType {
-  def registerIcon(register: IconRegister)
+  def registerIcon(register: IIconRegister)
 
-  var icon: Icon = null
+  var icon: IIcon = null
 
   def apply(x: Int, y: Int, z: Int, r: RenderBlocks, brightness: Int = 255)
 }
 
 case class PlantRenderCross(iconpath: String) extends PlantRenderType {
-  def registerIcon(register: IconRegister) {
+  def registerIcon(register: IIconRegister) {
     icon = register.registerIcon("Anima:" + iconpath)
   }
 
@@ -110,7 +110,7 @@ case class PlantRenderCross(iconpath: String) extends PlantRenderType {
 }
 
 case class PlantRenderHash(iconpath: String) extends PlantRenderType {
-  def registerIcon(register: IconRegister) {
+  def registerIcon(register: IIconRegister) {
     icon = register.registerIcon("Anima:" + iconpath)
   }
 

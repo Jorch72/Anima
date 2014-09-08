@@ -18,11 +18,11 @@ case class GrowInPlace(replacement: PlantPart) extends GrowthBehaviour {
 
 case class GrowUp(extension: PlantPart) extends GrowthBehaviour {
   def grow(e: PlantTileEntity) {
-    if (e.worldObj.isAirBlock(e.xCoord, e.yCoord + 1, e.zCoord)) {
+    if (e.getWorldObj.isAirBlock(e.xCoord, e.yCoord + 1, e.zCoord)) {
       val newte = new PlantTileEntity
       newte.plantPart = extension.name
-      e.worldObj.setBlock(e.xCoord, e.yCoord + 1, e.zCoord, PlantBlock.block.blockID)
-      e.worldObj.setBlockTileEntity(e.xCoord, e.yCoord + 1, e.zCoord, newte)
+      e.getWorldObj.setBlock(e.xCoord, e.yCoord + 1, e.zCoord, PlantBlock.block)
+      e.getWorldObj.setTileEntity(e.xCoord, e.yCoord + 1, e.zCoord, newte)
     }
   }
 }

@@ -1,15 +1,15 @@
 package net.machinemuse.anima.plants
 
 import net.minecraft.block.{Block, BlockCrops}
-import net.minecraft.item.{ItemStack, ItemBlock}
+import net.minecraft.item.{Item, ItemStack, ItemBlock}
 import net.machinemuse.anima.AnimaTab
 import java.util.Random
 import net.minecraft.world.World
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.creativetab.CreativeTabs
 import java.util
-import net.minecraft.util.Icon
-import net.minecraft.client.renderer.texture.IconRegister
+import net.minecraft.util.IIcon
+import net.minecraft.client.renderer.texture.IIconRegister
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.minecraft.entity.EntityLivingBase
 import net.machinemuse.anima.plants.parts.WoadLeavesFull
@@ -25,20 +25,20 @@ object PlantBlock {
   var item: PlantItemBlock = null
 }
 
-class PlantBlock(id: Int) extends BlockCrops(id) {
+class PlantBlock extends BlockCrops {
   PlantBlock.block = this
 
   setTickRandomly(true)
   setCreativeTab(AnimaTab)
   setHardness(0.5F)
-  setStepSound(Block.soundGrassFootstep)
-  setUnlocalizedName("anima.plantBlockUnknown")
+  setStepSound(Block.soundTypeGrass)
+  setBlockName("anima.plantBlockUnknown")
   disableStats()
 
   val border: Float = 0.0625F
   setBlockBounds(border, 0.0F, border, 1.0F - border, 1.0F - 2 * border, 1.0F - border)
 
-  override def fertilize(world: World, x: Int, y: Int, z: Int) {
+  override def func_149863_m(world: World, x: Int, y: Int, z: Int) { // Guessing this is fertilize
     PlantPartRegistry.getPlantTileEntity(world, x, y, z) map {
       e =>
         e.fertilize()
@@ -56,10 +56,10 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
 
   override def createTileEntity(world: World, metadata: Int): TileEntity = new PlantTileEntity()
 
-  @SideOnly(Side.CLIENT) override def getIcon(par1: Int, par2: Int): Icon = WoadLeavesFull.render.icon
+  @SideOnly(Side.CLIENT) override def getIcon(par1: Int, par2: Int): IIcon = WoadLeavesFull.render.icon
 
 
-  override def registerIcons(reg: IconRegister) {
+  override def registerBlockIcons(reg: IIconRegister) {
     PlantPartRegistry.elems foreach {
       part => part.render.registerIcon(reg)
     }
@@ -73,7 +73,7 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
     }
   }
 
-  override def getSubBlocks(blockID: Int, tab: CreativeTabs, itemlist: util.List[_]) {
+  override def getSubBlocks(block: Item, tab: CreativeTabs, itemlist: util.List[_]) {
     val list = itemlist.asInstanceOf[util.List[ItemStack]]
     PlantPartRegistry.elems foreach {
       part =>
@@ -94,7 +94,7 @@ class PlantBlock(id: Int) extends BlockCrops(id) {
 }
 
 
-class PlantItemBlock(id: Int) extends ItemBlock(id) {
+class PlantItemBlock(block: Block) extends ItemBlock(block) {
   PlantBlock.item = this
   setHasSubtypes(true)
   setMaxDamage(0)
@@ -106,7 +106,7 @@ class PlantItemBlock(id: Int) extends ItemBlock(id) {
   //    par3List.asInstanceOf[util.List[String]].add(getUnlocalizedName(par1ItemStack))
   //  }
 
-  override def getIcon(stack: ItemStack, pass: Int): Icon = {
+  override def getIcon(stack: ItemStack, pass: Int): IIcon = {
     PlantPartRegistry.getPlantPart(stack) match {
       case Some(e) => e.render.icon
       case None => null
@@ -114,8 +114,8 @@ class PlantItemBlock(id: Int) extends ItemBlock(id) {
   }
 
   //  @SideOnly(Side.CLIENT)
-  //  override def getIconFromDamage(damage: Int): Icon = {
-  //    PlantPart.subtypes(damage).registeredIcon
+  //  override def getIIconFromDamage(damage: Int): IIcon = {
+  //    PlantPart.subtypes(damage).registeredIIcon
   //  }
   override def getUnlocalizedName(stack: ItemStack): String = {
     PlantPartRegistry.getPlantPart(stack) match {

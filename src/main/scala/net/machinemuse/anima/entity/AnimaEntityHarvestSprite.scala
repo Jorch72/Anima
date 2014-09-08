@@ -1,13 +1,10 @@
 package net.machinemuse.anima.entity
 
-import net.minecraft.world.World
-import net.minecraft.entity.ai.EntityAIWander
-import net.minecraft.block.Block
-import net.minecraftforge.common.IPlantable
-import net.machinemuse.numina.random.MuseRandom
 import net.machinemuse.anima.block.TileEntityIncenseBurner
+import net.machinemuse.numina.random.MuseRandom
 import net.minecraft.item.ItemStack
-import net.machinemuse.numina.general.MuseLogger
+import net.minecraft.world.World
+import net.minecraftforge.common.IPlantable
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -23,8 +20,8 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
   }
 
   def checkDeathConditions() {
-    val check = world.getBlockTileEntity(tetherX, tetherY, tetherZ)
-    world.getBlockTileEntity(tetherX, tetherY, tetherZ) match {
+    val check = world.getTileEntity(tetherX, tetherY, tetherZ)
+    world.getTileEntity(tetherX, tetherY, tetherZ) match {
       case te: TileEntityIncenseBurner =>
         if (te.isBurning && te.hasIncense && isValidIncense(te.incense.get)) {
         } else {
@@ -56,7 +53,7 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
       motionX * motionX +
         motionY * motionY +
         motionZ * motionZ)
-    if(sumsq > ratio) {
+    if (sumsq > ratio) {
       motionX *= ratio / sumsq
       motionY *= ratio / sumsq
       motionZ *= ratio / sumsq
@@ -68,7 +65,7 @@ class AnimaEntityHarvestSprite(world: World) extends AnimaEntitySprite(world) {
     val x = (posX + r * (MuseRandom.nextDouble * 2.0 - 1.0)).toInt
     val y = (posY + r * (MuseRandom.nextDouble * 2.0 - 1.0)).toInt
     val z = (posZ + r * (MuseRandom.nextDouble * 2.0 - 1.0)).toInt
-    val block = Block.blocksList(worldObj.getBlockId(x, y, z))
+    val block = worldObj.getBlock(x, y, z)
     val odds = r * r * r * 8.0
     val bonusChance = 100.0
     val threshold = bonusChance * odds * 5.0 / 16384.0

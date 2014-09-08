@@ -1,48 +1,35 @@
 package net.machinemuse.anima.dream
 
-import net.minecraft.world.{IBlockAccess, World}
-import net.minecraftforge.common.ForgeDirection
-import net.minecraft.util.Vec3Pool
-import net.minecraft.world.biome.BiomeGenBase
+import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.world.IBlockAccess
+import net.minecraft.world.biome.BiomeGenBase
+import net.minecraftforge.common.util.ForgeDirection
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:31 PM, 7/3/13
  */
 class DreamWorld extends IBlockAccess {
-  def getBlockId(i: Int, j: Int, k: Int): Int = ???
 
-  def getBlockTileEntity(i: Int, j: Int, k: Int): TileEntity = ???
+  override def getBlock(p_147439_1_ : Int, p_147439_2_ : Int, p_147439_3_ : Int): Block = ???
 
-  def getLightBrightnessForSkyBlocks(i: Int, j: Int, k: Int, l: Int): Int = ???
+  override def isSideSolid(x: Int, y: Int, z: Int, side: ForgeDirection, _default: Boolean): Boolean = ???
 
-  def getBlockMetadata(i: Int, j: Int, k: Int): Int = ???
+  override def getTileEntity(p_147438_1_ : Int, p_147438_2_ : Int, p_147438_3_ : Int): TileEntity = ???
 
-  def getBrightness(i: Int, j: Int, k: Int, l: Int): Float = ???
+  override def getLightBrightnessForSkyBlocks(p_72802_1_ : Int, p_72802_2_ : Int, p_72802_3_ : Int, p_72802_4_ : Int): Int = ???
 
-  def getLightBrightness(i: Int, j: Int, k: Int): Float = ???
+  override def getHeight: Int = ???
 
-  def getBlockMaterial(i: Int, j: Int, k: Int): Material = ???
+  override def isBlockProvidingPowerTo(p_72879_1_ : Int, p_72879_2_ : Int, p_72879_3_ : Int, p_72879_4_ : Int): Int = ???
 
-  def isBlockOpaqueCube(i: Int, j: Int, k: Int): Boolean = ???
+  override def extendedLevelsInChunkCache(): Boolean = ???
 
-  def isBlockNormalCube(i: Int, j: Int, k: Int): Boolean = ???
+  override def isAirBlock(p_147437_1_ : Int, p_147437_2_ : Int, p_147437_3_ : Int): Boolean = ???
 
-  def isAirBlock(i: Int, j: Int, k: Int): Boolean = ???
+  override def getBiomeGenForCoords(p_72807_1_ : Int, p_72807_2_ : Int): BiomeGenBase = ???
 
-  def getBiomeGenForCoords(i: Int, j: Int): BiomeGenBase = ???
-
-  def getHeight: Int = ???
-
-  def extendedLevelsInChunkCache(): Boolean = ???
-
-  def doesBlockHaveSolidTopSurface(i: Int, j: Int, k: Int): Boolean = ???
-
-  def getWorldVec3Pool: Vec3Pool = ???
-
-  def isBlockProvidingPowerTo(i: Int, j: Int, k: Int, l: Int): Int = ???
-
-  def isBlockSolidOnSide(x: Int, y: Int, z: Int, side: ForgeDirection, _default: Boolean): Boolean = ???
+  override def getBlockMetadata(p_72805_1_ : Int, p_72805_2_ : Int, p_72805_3_ : Int): Int = ???
 }

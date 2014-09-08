@@ -1,38 +1,36 @@
 package net.machinemuse.anima.block
 
-import net.minecraft.block.{Block, BlockContainer}
-import net.machinemuse.anima.item.{Incense, BlockIDManager}
-import net.minecraft.block.material.Material
-import net.minecraft.world.{IBlockAccess, World}
-import net.minecraft.tileentity.TileEntity
-import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.numina.scala.OptionCast
+import cpw.mods.fml.client.registry.{ISimpleBlockRenderingHandler, RenderingRegistry}
 import cpw.mods.fml.common.registry.GameRegistry
 import net.machinemuse.anima.AnimaTab
-import net.machinemuse.numina.tileentity.MuseTileEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.util.AxisAlignedBB
+import net.machinemuse.anima.entity.{AnimaEntityHarvestSprite, AnimaEntitySprite}
+import net.machinemuse.anima.item.Incense
 import net.machinemuse.numina.random.MuseRandom
 import net.machinemuse.numina.render.{MuseTESR, ParticleDictionary}
-import net.machinemuse.anima.entity.{AnimaEntitySprite, AnimaEntityHarvestSprite}
-import net.minecraft.nbt.NBTTagCompound
+import net.machinemuse.numina.scala.OptionCast
+import net.machinemuse.numina.tileentity.MuseTileEntity
+import net.minecraft.block.material.Material
+import net.minecraft.block.{Block, BlockContainer}
+import net.minecraft.client.renderer.RenderBlocks
 import net.minecraft.command.IEntitySelector
 import net.minecraft.entity.Entity
-import cpw.mods.fml.client.registry.{RenderingRegistry, ISimpleBlockRenderingHandler}
-import net.minecraft.client.renderer.RenderBlocks
-import net.minecraftforge.client.model.obj.WavefrontObject
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.{ResourceLocation, AxisAlignedBB}
+import net.minecraft.world.{IBlockAccess, World}
 import net.minecraftforge.client.model.AdvancedModelLoader
+import net.minecraftforge.client.model.obj.WavefrontObject
 import org.lwjgl.opengl.GL11._
-import scala.Some
-import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:58 AM, 11/13/13
  */
-object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incenseburner"), Material.clay) {
+object BlockIncenseBurner extends BlockContainer(Material.clay) {
 
-  setUnlocalizedName("incenseburner")
+  setBlockName("incenseburner")
 
   setLightOpacity(0)
 
@@ -40,7 +38,7 @@ object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incensebu
 
   setCreativeTab(AnimaTab)
 
-  override def createNewTileEntity(world: World): TileEntity = new TileEntityIncenseBurner
+  override def createNewTileEntity(world: World, idk: Int): TileEntity = new TileEntityIncenseBurner
 
   override def renderAsNormalBlock: Boolean = false
 
@@ -53,7 +51,7 @@ object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incensebu
    * Called upon block activation (right click on the block.)
    */
   override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, sideHit: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    OptionCast[TileEntityIncenseBurner](world.getBlockTileEntity(x, y, z)) map {
+    OptionCast[TileEntityIncenseBurner](world.getTileEntity(x, y, z)) map {
       te =>
         val stack = player.getCurrentEquippedItem
         if (!te.hasIncense && stack != null && (stack.getItem eq Incense))
@@ -63,7 +61,7 @@ object BlockIncenseBurner extends BlockContainer(BlockIDManager.getID("incensebu
         } else if (te.hasIncense) {
           val stack = te.incense.get
           te.incense = None
-          player.dropPlayerItem(stack)
+          player.dropPlayerItemWithRandomChoice(stack, false) // TODO: Find out what the flag does
           te.isBurning = false
         }
     }
@@ -156,8 +154,8 @@ class TileEntityIncenseBurner extends MuseTileEntity {
 }
 
 object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler {
-  val incensestick = AdvancedModelLoader.loadModel("/assets/anima/models/incenseStick.obj").asInstanceOf[WavefrontObject]
-  val incenseholder = AdvancedModelLoader.loadModel("/assets/anima/models/incenseHolderAndCore.obj").asInstanceOf[WavefrontObject]
+  val incensestick = AdvancedModelLoader.loadModel(new ResourceLocation("anima:models/incenseStick.obj")).asInstanceOf[WavefrontObject]
+  val incenseholder = AdvancedModelLoader.loadModel(new ResourceLocation("anima:models/incenseHolderAndCore.obj")).asInstanceOf[WavefrontObject]
   val renderID = RenderingRegistry.getNextAvailableRenderId
 
   def renderInventoryBlock(block: Block, metadata: Int, modelID: Int, renderer: RenderBlocks): Unit = {
@@ -171,8 +169,6 @@ object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler 
 
   def renderWorldBlock(world: IBlockAccess, x: Int, y: Int, z: Int, block: Block, modelId: Int, renderer: RenderBlocks): Boolean = true
 
-  def shouldRender3DInInventory(): Boolean = true
-
   def getRenderId: Int = renderID
 
   override def renderAt(tileentity: TileEntity, x: Double, y: Double, z: Double, partialTickTime: Float): Unit = {
@@ -184,7 +180,7 @@ object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler 
     incenseholder.renderAll()
     if (tileentity.asInstanceOf[TileEntityIncenseBurner].hasIncense) {
       val stack = tileentity.asInstanceOf[TileEntityIncenseBurner].incense.get
-      val length:Double = 1.0D - (stack.getItemDamage.toDouble / stack.getMaxDamage.toDouble)
+      val length: Double = 1.0D - (stack.getItemDamage.toDouble / stack.getMaxDamage.toDouble)
       glTranslated(4.046D, 1.688D, 0.092D)
       glRotated(75, 0, 0, 1)
       glScaled(1, length, 1)
@@ -192,4 +188,6 @@ object IncenseBurnerRenderer extends MuseTESR with ISimpleBlockRenderingHandler 
     }
     glPopMatrix()
   }
+
+  override def shouldRender3DInInventory(modelId: Int): Boolean = true
 }

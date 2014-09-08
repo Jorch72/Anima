@@ -2,8 +2,8 @@ package net.machinemuse.anima.spirit
 
 import net.minecraft.entity.player.EntityPlayer
 import scala.collection.mutable
-import net.minecraft.util.Icon
-import net.minecraft.client.renderer.texture.IconRegister
+import net.minecraft.util.IIcon
+import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.world.World
 
 /**
@@ -13,9 +13,9 @@ import net.minecraft.world.World
 trait GreatSpirit {
   val name: String
 
-  def registerIcons(register: IconRegister)
+  def registerIcons(register: IIconRegister)
 
-  def getIcon: Icon
+  def getIcon: IIcon
 
   val favourMapping = new mutable.HashMap[String, Int]
 

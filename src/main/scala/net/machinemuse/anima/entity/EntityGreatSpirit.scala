@@ -11,7 +11,9 @@ import net.minecraft.entity.player.EntityPlayer
  * Created: 5:58 AM, 10/16/13
  */
 
-class EntityGreatCow(world: World) extends EntityCow(world) with EntityGreatSpirit
+class EntityGreatCow(world: World) extends EntityCow(world) with EntityGreatSpirit {
+
+}
 
 class EntityGreatOcelot(world: World) extends EntityOcelot(world) with EntityGreatSpirit
 
@@ -42,8 +44,8 @@ trait EntityGreatSpirit extends EntityAnimal {
 
   protected override def applyEntityAttributes() {
     super.applyEntityAttributes()
-    this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(10000.0D)
-    this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.2D)
+    this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10000.0D)
+    this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D)
   }
 
   override def onEntityUpdate() {
@@ -61,5 +63,5 @@ trait EntityGreatSpirit extends EntityAnimal {
 
   override def canMateWith(par1EntityAnimal: EntityAnimal): Boolean = false
 
-  override def createChild(entityageable: EntityAgeable): EntityAgeable = null
+  override def createChild(entityageable: EntityAgeable) = null
 }

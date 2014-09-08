@@ -12,7 +12,7 @@ object AnimaBlock {
   var plantBlock: PlantBlock = null
 
   def init(id: Int) {
-    plantBlock = new PlantBlock(id)
+    plantBlock = new PlantBlock
     GameRegistry.registerBlock(plantBlock, classOf[PlantItemBlock], plantBlock.getUnlocalizedName)
     GameRegistry.registerTileEntity(classOf[PlantTileEntity], plantBlock.getUnlocalizedName)
 

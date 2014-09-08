@@ -1,25 +1,27 @@
 package net.machinemuse.anima.event
 
-import net.minecraftforge.event.ForgeSubscribe
-import net.minecraftforge.event.entity.player.{EntityInteractEvent, PlayerInteractEvent}
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action
-import net.minecraft.item.{ItemStack, Item}
-import net.machinemuse.anima.item.Kettle
-import net.minecraft.entity.passive._
-import net.machinemuse.numina.scala.OptionCast
-import net.machinemuse.anima.spirit.GreatCow
-import net.minecraftforge.event.entity.item.ItemTossEvent
-import scala.collection.JavaConverters._
+import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.machinemuse.anima.entity.EntityGreatCow
+import net.machinemuse.anima.item.Kettle
+import net.machinemuse.anima.spirit.GreatCow
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.scala.OptionCast
+import net.minecraft.block.Block
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.passive._
+import net.minecraft.item.{Item, ItemStack}
+import net.minecraftforge.event.entity.item.ItemTossEvent
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action
+import net.minecraftforge.event.entity.player.{EntityInteractEvent, PlayerInteractEvent}
+
+import scala.collection.JavaConverters._
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 11:54 PM, 6/28/13
  */
 object EventHandler {
-  @ForgeSubscribe
+  @SubscribeEvent
   def onPlayerRightClick(e: PlayerInteractEvent) {
     e.action match {
       case Action.RIGHT_CLICK_AIR => onPlayerRightClickAir(e)
@@ -32,16 +34,17 @@ object EventHandler {
 
   def onPlayerRightClickBlock(e: PlayerInteractEvent) {
     val world = e.entityPlayer.worldObj
-    val bid = world.getBlockId(e.x, e.y, e.z)
-    if (bid == 8 && e.entityPlayer.getCurrentEquippedItem.getItem.equals(Item.bowlEmpty)) {
-      val i = e.entityPlayer.inventory
-      i.setInventorySlotContents(i.currentItem, new ItemStack(Kettle))
-    }
+    val block = world.getBlock(e.x, e.y, e.z)
+    // TODO: Find out of block is water
+//    if (block.getBlock && e.entityPlayer.getCurrentEquippedItem.getItem.equals(Item.bowlEmpty)) {
+//      val i = e.entityPlayer.inventory
+//      i.setInventorySlotContents(i.currentItem, new ItemStack(Kettle))
+//    }
   }
 
   def onPlayerLeftClickBlock(e: PlayerInteractEvent) {}
 
-  @ForgeSubscribe
+  @SubscribeEvent
   def onEntityInteract(e: EntityInteractEvent) {
     val target = e.target
     val player = e.entityPlayer
@@ -50,7 +53,7 @@ object EventHandler {
       animal <- OptionCast[EntityAnimal](target);
       stack <- Option(player.getCurrentEquippedItem)
       if animal.isBreedingItem(stack)
-      if animal.inLove <= 0
+      if !animal.isInLove
       if animal.getGrowingAge == 0
     ) {
       // Animal being fed breeding food
@@ -68,7 +71,7 @@ object EventHandler {
     }
   }
 
-  @ForgeSubscribe
+  @SubscribeEvent
   def onTossItem(e: ItemTossEvent) {
     val player = e.player
     val world = e.player.worldObj

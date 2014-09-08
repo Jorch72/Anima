@@ -2,8 +2,8 @@ package net.machinemuse.anima.item
 
 import net.machinemuse.numina.item.ModeChangingItem
 import net.minecraft.item.ItemStack
-import net.minecraft.util.{MathHelper, Icon}
-import net.minecraft.client.renderer.texture.IconRegister
+import net.minecraft.util.{MathHelper, IIcon}
+import net.minecraft.client.renderer.texture.IIconRegister
 import net.machinemuse.anima.spirit.GreatSpiritListings
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
@@ -18,14 +18,14 @@ object SummoningStaff extends AnimaItemBase("summoningstaff") with ModeChangingI
   setMaxStackSize(1)
   setNoRepair()
 
-  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[Icon] = GreatSpiritListings.listings.find(sp => sp.name == mode).map(sp => sp.getIcon)
+  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[IIcon] = GreatSpiritListings.listings.find(sp => sp.name == mode).map(sp => sp.getIcon)
 
   def getValidModes(stack: ItemStack, player: EntityPlayer) = {
     for (spirit <- GreatSpiritListings.listings) yield spirit.name
   }
 
 
-  override def registerIcons(register: IconRegister) {
+  override def registerIcons(register: IIconRegister) {
     super.registerIcons(register)
     for (spirit <- GreatSpiritListings.listings) {
       spirit.registerIcons(register)

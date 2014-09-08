@@ -1,6 +1,6 @@
 package net.machinemuse.anima
 
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{Item, ItemStack}
 import net.minecraft.creativetab.CreativeTabs
 import cpw.mods.fml.common.registry.LanguageRegistry
 import net.machinemuse.anima.block.AnimaBlock
@@ -12,6 +12,5 @@ import net.machinemuse.anima.item.DreamCatcher
  */
 
 object AnimaTab extends CreativeTabs(CreativeTabs.getNextID, "Anima") {
-  override def getIconItemStack: ItemStack = new ItemStack(DreamCatcher)
-
+  override def getTabIconItem: Item = DreamCatcher
 }
